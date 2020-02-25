@@ -6,8 +6,10 @@ import Center from "./Center";
 import EditableText from "./EditableText";
 import Error from "./Error";
 import FadeIn from "./FadeIn";
+import HoldButton from "./HoldButton";
 import Icon from "./Icon";
 import Input from "./Input";
+import InputWrapper, {InputWrapperInfo} from "./InputWrapper";
 import Menu, {MenuItem} from "./Menu";
 import MultiSelect from "./Select/MultiSelect";
 import Loader from "./Loader";
@@ -27,8 +29,11 @@ export {
     EditableText,
     Error,
     FadeIn,
+    HoldButton,
     Icon,
     Input,
+    InputWrapper,
+    InputWrapperInfo,
     Menu,
     MenuItem,
     MultiSelect,
@@ -51,8 +56,11 @@ export default {
     EditableText,
     Error,
     FadeIn,
+    HoldButton,
     Icon,
     Input,
+    InputWrapper,
+    InputWrapperInfo,
     Menu,
     MenuItem,
     MultiSelect,

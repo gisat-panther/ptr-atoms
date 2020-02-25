@@ -1,6 +1,6 @@
 {
   "name": "@gisatcz/ptr-atoms",
-  "version": "0.0.1-pre-alpha",
+  "version": "1.0.0-alpha",
   "description": "Panther FE charts",
   "keywords": [
     "panther",
@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@gisatcz/ptr-utils": "1.0.5",
+    "@gisatcz/ptr-locales": "0.0.1-pre-alpha",
     "@gisatcz/ptr-core": "0.0.6-pre-alpha",
     "classnames": "2.2.6",
     "lodash": "4.17.15",

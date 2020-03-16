@@ -9,7 +9,16 @@ const pkg = require("./package.json");
 
 const lodashExternal = [
   'lodash/find',
-  'lodash/includes'
+  'lodash/includes',
+  'lodash/reject',
+  'lodash/get',
+  'lodash/isObject',
+  'lodash/filter',
+  'lodash/isArray',
+  'lodash/set',
+  'lodash/forEach',
+  'lodash/isEmpty',
+
 ]
 
 export default {
@@ -18,6 +27,9 @@ export default {
     'react',
     'prop-types',
     'classnames',
+    'react-select',
+    'react-select/lib/Creatable',
+    '@gisatcz/ptr-utils',
     '@gisatcz/ptr-atoms',
     '@gisatcz/ptr-locales',
     'react-rnd',

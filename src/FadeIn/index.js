@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import './style.css';
+import './style.scss';
 
 class FadeIn extends React.PureComponent  {
 	static propTypes = {

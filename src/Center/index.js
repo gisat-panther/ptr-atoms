@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import './style.css';
+import './style.scss';
 
 export default props => (
 	<div

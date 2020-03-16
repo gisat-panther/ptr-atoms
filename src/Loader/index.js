@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import './Loader.css';
+import './Loader.scss';
 
 class Loader extends React.PureComponent {
 

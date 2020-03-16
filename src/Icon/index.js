@@ -48,7 +48,7 @@ import Upload from './components/Upload';
 import RotateLeftCircularArrow from './components/RotateLeftCircularArrow';
 import RotateRightCircularArrow from './components/RotateRightCircularArrow';
 
-import './icon.css';
+import './icon.scss';
 
 const icon = key => {
 	switch(key) {

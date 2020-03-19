@@ -1,12 +1,12 @@
 {
   "name": "@gisatcz/ptr-atoms",
-  "version": "1.1.0-alpha",
-  "description": "Panther FE charts",
+  "version": "1.2.0",
+  "description": "Panther FE atoms",
   "keywords": [
     "panther",
     "gisat"
   ],
-  "homepage": "https://github.com/gisat/ptr-utils",
+  "homepage": "https://github.com/gisat/ptr-atoms",
   "style": "dist/style.css",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -17,12 +17,12 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gisat/ptr-utils"
+    "url": "https://github.com/gisat/ptr-atoms"
   },
   "dependencies": {
-    "@gisatcz/ptr-utils": "1.1.1",
-    "@gisatcz/ptr-locales": "0.1.0-alpha",
-    "@gisatcz/ptr-core": "1.1.2-alpha",
+    "@gisatcz/ptr-utils": "1.2.0",
+    "@gisatcz/ptr-locales": "1.2.0",
+    "@gisatcz/ptr-core": "1.2.0",
     "classnames": "2.2.6",
     "lodash": "4.17.15",
     "prop-types": "15.7.2",

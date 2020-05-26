@@ -56,22 +56,36 @@ class Button extends React.PureComponent {
 
 	componentDidMount() {
 		if (this.props.onHold) {
-			this.node.current.addEventListener('touchstart', this.onTouchStart);
-			this.node.current.addEventListener('touchend', this.onTouchEnd);
+			this.addTouchListeners();
 		}
 	}
 
 	componentWillUnmount() {
 		if (this.props.onHold) {
-			this.node.current.removeEventListener('touchstart', this.onTouchStart);
-			this.node.current.removeEventListener('touchend', this.onTouchEnd);
+			this.removeTouchListeners();
 		}
 	}
 
 	componentDidUpdate(prevProps, prevState, snapshot) {
+		if (!prevProps.onHold && this.props.onHold) {
+			this.addTouchListeners();
+		} else if (prevProps.onHold && !this.props.onHold) {
+			this.removeTouchListeners();
+		}
+
 		if (this.props.disabled && this.state.held) {
 			this.clearHoldTimeout();
 		}
+	}
+
+	addTouchListeners() {
+		this.node.current.addEventListener('touchstart', this.onTouchStart);
+		this.node.current.addEventListener('touchend', this.onTouchEnd);
+	}
+
+	removeTouchListeners() {
+		this.node.current.removeEventListener('touchstart', this.onTouchStart);
+		this.node.current.removeEventListener('touchend', this.onTouchEnd);
 	}
 
 	onTouchStart(evt) {

@@ -14,11 +14,13 @@ class Button extends React.PureComponent {
 		className: PropTypes.string,
 		disabled: PropTypes.bool,
 		ghost: PropTypes.bool,
+		holdEnabled: PropTypes.bool,
 		icon: PropTypes.string,
 		inverted: PropTypes.bool,
 		invisible: PropTypes.bool,
 		large: PropTypes.bool,
 		onClick: PropTypes.func.isRequired,
+		onHold: PropTypes.func,
 		primary: PropTypes.bool,
 		secondary: PropTypes.bool,
 		side: PropTypes.string,
@@ -28,21 +30,95 @@ class Button extends React.PureComponent {
 	};
 
 	static defaultProps = {
-		disabled: false
+		disabled: false,
+		onHoldCallStart: 300,
+		onHoldCallStep: 50,
 	};
 
 	constructor(props) {
 		super(props);
+		this.node = React.createRef();
+
 		this.state = {
 			focused: false,
-			menuOpen: false
+			menuOpen: false,
+			held: false
 		};
 
 		this.onBlur = this.onBlur.bind(this);
 		this.onClick = this.onClick.bind(this);
 		this.onKeyPress = this.onKeyPress.bind(this);
+
+		this.onMouseOut = this.onMouseOut.bind(this);
+		this.onMouseDown = this.onMouseDown.bind(this);
+		this.onTouchStart = this.onTouchStart.bind(this);
+		this.onTouchEnd = this.onTouchEnd.bind(this);
 	}
 
+	componentDidMount() {
+		if (this.props.holdEnabled) {
+			this.node.current.addEventListener('touchstart', this.onTouchStart);
+			this.node.current.addEventListener('touchend', this.onTouchEnd);
+		}
+	}
+
+	componentWillUnmount() {
+		if (this.props.holdEnabled) {
+			this.node.current.removeEventListener('touchstart', this.onTouchStart);
+			this.node.current.removeEventListener('touchend', this.onTouchEnd);
+		}
+	}
+
+	componentDidUpdate(prevProps, prevState, snapshot) {
+		if (this.props.disabled && this.state.held) {
+			this.clearHoldTimeout();
+		}
+	}
+
+	onTouchStart(evt) {
+		evt.stopPropagation();
+		evt.preventDefault();
+		this.onMouseDown(evt);
+	}
+
+	onTouchEnd(evt) {
+		evt.stopPropagation();
+		evt.preventDefault();
+		this.onMouseOut(evt);
+	}
+
+	onMouseDown() {
+		if (this.props.holdEnabled && !this.props.disabled) {
+			this.props.onClick();
+			this.clearHoldTimeout();
+			this.holdTimeout = setTimeout(this.holdStart.bind(this), this.props.onHoldCallStart);
+		}
+	};
+
+	onMouseOut() {
+		if (this.props.holdEnabled) {
+			this.clearHoldTimeout();
+			if (this.state.held) {
+				this.setState({
+					held: false,
+				});
+			}
+		}
+	};
+
+	clearHoldTimeout() {
+		clearTimeout(this.holdTimeout);
+		clearInterval(this.onHoldCallInterval);
+	}
+
+	holdStart() {
+		this.props.onHold();
+		this.onHoldCallInterval = setInterval(this.props.onHold, this.props.onHoldCallStep);
+
+		this.setState({
+			held: true,
+		});
+	};
 
 	onClick(e) {
 		if (!this.props.disabled) {
@@ -137,6 +213,10 @@ class Button extends React.PureComponent {
 				onKeyPress={this.onKeyPress}
 				tabIndex={(this.props.disabled || this.props.unfocusable) ? "-1" : "0"}
 				title={this.props.title}
+				ref={this.node}
+				onMouseLeave={this.onMouseOut}
+				onMouseDown={this.onMouseDown}
+				onMouseUp={this.onMouseOut}
 			>
 				{iconInsert}
 				{content}

@@ -56,17 +56,13 @@ class Button extends React.PureComponent {
 	}
 
 	componentDidMount() {
-		if (this.props.holdEnabled) {
-			this.node.current.addEventListener('touchstart', this.onTouchStart);
-			this.node.current.addEventListener('touchend', this.onTouchEnd);
-		}
+		this.node.current.addEventListener('touchstart', this.onTouchStart);
+		this.node.current.addEventListener('touchend', this.onTouchEnd);
 	}
 
 	componentWillUnmount() {
-		if (this.props.holdEnabled) {
-			this.node.current.removeEventListener('touchstart', this.onTouchStart);
-			this.node.current.removeEventListener('touchend', this.onTouchEnd);
-		}
+		this.node.current.removeEventListener('touchstart', this.onTouchStart);
+		this.node.current.removeEventListener('touchend', this.onTouchEnd);
 	}
 
 	componentDidUpdate(prevProps, prevState, snapshot) {
@@ -78,18 +74,21 @@ class Button extends React.PureComponent {
 	onTouchStart(evt) {
 		evt.stopPropagation();
 		evt.preventDefault();
-		this.onMouseDown(evt);
+		if (this.props.holdEnabled) {
+			this.onMouseDown(evt);
+		}
 	}
 
 	onTouchEnd(evt) {
 		evt.stopPropagation();
 		evt.preventDefault();
-		this.onMouseOut(evt);
+		if (this.props.holdEnabled) {
+			this.onMouseOut(evt);
+		}
 	}
 
 	onMouseDown() {
 		if (this.props.holdEnabled && !this.props.disabled) {
-			this.props.onClick();
 			this.clearHoldTimeout();
 			this.holdTimeout = setTimeout(this.holdStart.bind(this), this.props.onHoldCallStart);
 		}

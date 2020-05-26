@@ -14,7 +14,6 @@ class Button extends React.PureComponent {
 		className: PropTypes.string,
 		disabled: PropTypes.bool,
 		ghost: PropTypes.bool,
-		holdEnabled: PropTypes.bool,
 		icon: PropTypes.string,
 		inverted: PropTypes.bool,
 		invisible: PropTypes.bool,
@@ -31,8 +30,8 @@ class Button extends React.PureComponent {
 
 	static defaultProps = {
 		disabled: false,
-		onHoldCallStart: 300,
-		onHoldCallStep: 50,
+		holdStart: 300,
+		holdStep: 50,
 	};
 
 	constructor(props) {
@@ -56,13 +55,17 @@ class Button extends React.PureComponent {
 	}
 
 	componentDidMount() {
-		this.node.current.addEventListener('touchstart', this.onTouchStart);
-		this.node.current.addEventListener('touchend', this.onTouchEnd);
+		if (this.props.onHold) {
+			this.node.current.addEventListener('touchstart', this.onTouchStart);
+			this.node.current.addEventListener('touchend', this.onTouchEnd);
+		}
 	}
 
 	componentWillUnmount() {
-		this.node.current.removeEventListener('touchstart', this.onTouchStart);
-		this.node.current.removeEventListener('touchend', this.onTouchEnd);
+		if (this.props.onHold) {
+			this.node.current.removeEventListener('touchstart', this.onTouchStart);
+			this.node.current.removeEventListener('touchend', this.onTouchEnd);
+		}
 	}
 
 	componentDidUpdate(prevProps, prevState, snapshot) {
@@ -74,28 +77,24 @@ class Button extends React.PureComponent {
 	onTouchStart(evt) {
 		evt.stopPropagation();
 		evt.preventDefault();
-		if (this.props.holdEnabled) {
-			this.onMouseDown(evt);
-		}
+		this.onMouseDown(evt);
 	}
 
 	onTouchEnd(evt) {
 		evt.stopPropagation();
 		evt.preventDefault();
-		if (this.props.holdEnabled) {
-			this.onMouseOut(evt);
-		}
+		this.onMouseOut(evt);
 	}
 
 	onMouseDown() {
-		if (this.props.holdEnabled && !this.props.disabled) {
+		if (this.props.onHold && !this.props.disabled) {
 			this.clearHoldTimeout();
-			this.holdTimeout = setTimeout(this.holdStart.bind(this), this.props.onHoldCallStart);
+			this.holdTimeout = setTimeout(this.holdStart.bind(this), this.props.holdStart);
 		}
 	};
 
 	onMouseOut() {
-		if (this.props.holdEnabled) {
+		if (this.props.onHold) {
 			this.clearHoldTimeout();
 			if (this.state.held) {
 				this.setState({
@@ -112,7 +111,7 @@ class Button extends React.PureComponent {
 
 	holdStart() {
 		this.props.onHold();
-		this.onHoldCallInterval = setInterval(this.props.onHold, this.props.onHoldCallStep);
+		this.onHoldCallInterval = setInterval(this.props.onHold, this.props.holdStep);
 
 		this.setState({
 			held: true,

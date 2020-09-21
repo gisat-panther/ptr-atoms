@@ -21,6 +21,7 @@ import FileExport from './components/FileExport';
 import FileJson from './components/FileJson';
 import FileXls from './components/FileXls';
 import Filter from './components/Filter';
+import Gear from "./components/Gear";
 import Info from "./components/Info";
 import Opacity from './components/Opacity';
 import Layers from './components/Layers';
@@ -99,6 +100,9 @@ const icon = key => {
 		case 'xls':
 		case 'excel':
 			return <FileXls />;
+        case 'gear':
+        case 'settings':
+            return <Gear />;
 		case 'info':
 			return <Info />;
 		case 'layers':

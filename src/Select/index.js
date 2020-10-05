@@ -28,6 +28,7 @@ class Select extends React.PureComponent {
             PropTypes.object,
             PropTypes.string
         ]),
+        placeholder: PropTypes.string,
         valueIsTitle: PropTypes.bool,
         withKeyPrefix: PropTypes.bool,
 
@@ -171,6 +172,7 @@ class Select extends React.PureComponent {
                 tabIndex={props.unfocusable ? -1 : 0}
                 value={props.value}
                 title={props.value}
+                placeholder={props.placeholder}
                 styles={{ menuPortal: base => {
                         const { zIndex, ...rest } = base;  // remove zIndex from base by destructuring
                         return { ...rest, zIndex: 9999 };

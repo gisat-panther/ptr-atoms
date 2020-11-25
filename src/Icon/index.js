@@ -26,6 +26,7 @@ import Info from "./components/Info";
 import Opacity from './components/Opacity';
 import Layers from './components/Layers';
 import Legend from './components/Legend';
+import Mail from './components/Mail';
 import MapPin from './components/MapPin';
 import Minus from './components/Minus';
 import MinusThick from './components/MinusThick';
@@ -109,6 +110,8 @@ const icon = key => {
 			return <Layers/>;
 		case 'legend':
 			return <Legend/>;
+		case 'mail':
+			return <Mail/>;
 		case 'map-pin':
 			return <MapPin/>;
 		case 'minus':

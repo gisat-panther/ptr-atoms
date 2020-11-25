@@ -5,6 +5,7 @@ import AngleDoubleLeft from "./components/AngleDoubleLeft";
 import AngleDoubleRight from "./components/AngleDoubleRight";
 import AngleDoubleUp from "./components/AngleDoubleUp";
 import ArrowLeft from './components/ArrowLeft';
+import At from './components/At';
 import Calendar from './components/Calendar';
 import Circle from './components/Circle';
 import ChevronLeft from './components/ChevronLeft';
@@ -61,6 +62,8 @@ const icon = key => {
 			return <AngleDoubleUp/>;
 		case 'angle-double-down':
 			return <AngleDoubleDown/>;
+		case 'at':
+			return <At/>;
 		case 'arrow-left':
 		case 'back':
 			return <ArrowLeft />;

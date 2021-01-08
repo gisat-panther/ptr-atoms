@@ -22,6 +22,7 @@ import FileJson from './components/FileJson';
 import FileXls from './components/FileXls';
 import Filter from './components/Filter';
 import Gear from "./components/Gear";
+import Gisat from "./components/Gisat";
 import Info from "./components/Info";
 import Opacity from './components/Opacity';
 import Layers from './components/Layers';
@@ -103,6 +104,8 @@ const icon = key => {
         case 'gear':
         case 'settings':
             return <Gear />;
+		case 'gisat':
+			return <Gisat />;
 		case 'info':
 			return <Info />;
 		case 'layers':

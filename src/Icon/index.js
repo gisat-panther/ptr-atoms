@@ -21,22 +21,28 @@ import FileExport from './components/FileExport';
 import FileJson from './components/FileJson';
 import FileXls from './components/FileXls';
 import Filter from './components/Filter';
+import Facebook from './components/Facebook';
 import Gear from "./components/Gear";
 import Gisat from "./components/Gisat";
 import Info from "./components/Info";
 import Opacity from './components/Opacity';
 import Layers from './components/Layers';
 import Legend from './components/Legend';
+import LinkedIn from './components/LinkedIn';
+import Mail from './components/Mail';
 import MapPin from './components/MapPin';
+import Menu from './components/Menu';
 import Minus from './components/Minus';
 import MinusThick from './components/MinusThick';
 import Monitor from './components/Monitor';
 import Monitoring from './components/Monitoring';
 import NorthArrow from './components/NorthArrow';
+import Phone from './components/Phone';
 import Plus from './components/Plus';
 import PlusThick from './components/PlusThick';
 import Pushpin from './components/Pushpin';
 import Restore from './components/Restore';
+import ResearchGate from './components/ResearchGate';
 import RotateLeft from "./components/RotateLeft";
 import RotateRight from "./components/RotateRight";
 import Search from './components/Search';
@@ -46,6 +52,7 @@ import TiltMore from './components/TiltMore';
 import TiltLess from './components/TiltLess';
 import Times from './components/Times';
 import TriangleDown from "./components/TriangleDown";
+import Twitter from "./components/Twitter";
 import Upload from './components/Upload';
 import RotateLeftCircularArrow from './components/RotateLeftCircularArrow';
 import RotateRightCircularArrow from './components/RotateRightCircularArrow';
@@ -87,6 +94,8 @@ const icon = key => {
 			return <Expand />; //todo
 		case 'expand-row':
 			return <ExpandRow />;
+		case 'facebook':
+			return <Facebook />;
 		case 'filter':
 			return <Filter />;
 		case 'file-export':
@@ -112,8 +121,14 @@ const icon = key => {
 			return <Layers/>;
 		case 'legend':
 			return <Legend/>;
+		case 'linkedin':
+			return <LinkedIn/>;
+		case 'mail':
+			return <Mail/>;
 		case 'map-pin':
 			return <MapPin/>;
+		case 'menu':
+			return <Menu/>;
 		case 'minus':
 			return <Minus />; //todo
 		case 'minus-thick':
@@ -127,12 +142,16 @@ const icon = key => {
 			return <NorthArrow />;
 		case 'opacity':
 			return <Opacity />; //todo
+		case 'phone':
+			return <Phone />;
 		case 'plus':
 			return <Plus />;
 		case 'plus-thick':
 			return <PlusThick />;
 		case 'pushpin':
 			return <Pushpin />; //todo
+		case 'researchgate':
+			return <ResearchGate />;
 		case 'restore':
 			return <Restore />;
 		case 'rotate-left':
@@ -154,6 +173,8 @@ const icon = key => {
 			return <Times />;
 		case 'triangle-down':
 			return <TriangleDown />;
+		case 'twitter':
+			return <Twitter />;
 		case 'upload':
 			return <Upload />; //todo
 		default:

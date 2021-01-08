@@ -24,10 +24,12 @@ import Filter from './components/Filter';
 import Facebook from './components/Facebook';
 import Gear from "./components/Gear";
 import Gisat from "./components/Gisat";
+import Globe from "./components/Globe";
 import Info from "./components/Info";
 import Opacity from './components/Opacity';
 import Layers from './components/Layers';
 import Legend from './components/Legend';
+import Link from './components/Link';
 import LinkedIn from './components/LinkedIn';
 import Mail from './components/Mail';
 import MapPin from './components/MapPin';
@@ -115,12 +117,16 @@ const icon = key => {
             return <Gear />;
 		case 'gisat':
 			return <Gisat />;
+        case 'globe':
+            return <Globe />;
 		case 'info':
 			return <Info />;
 		case 'layers':
 			return <Layers/>;
 		case 'legend':
 			return <Legend/>;
+		case 'link':
+			return <Link/>;
 		case 'linkedin':
 			return <LinkedIn/>;
 		case 'mail':

@@ -29,7 +29,6 @@ import Info from "./components/Info";
 import Opacity from './components/Opacity';
 import Layers from './components/Layers';
 import Legend from './components/Legend';
-import Link from './components/Link';
 import LinkedIn from './components/LinkedIn';
 import Mail from './components/Mail';
 import MapPin from './components/MapPin';
@@ -125,8 +124,6 @@ const icon = key => {
 			return <Layers/>;
 		case 'legend':
 			return <Legend/>;
-		case 'link':
-			return <Link/>;
 		case 'linkedin':
 			return <LinkedIn/>;
 		case 'mail':

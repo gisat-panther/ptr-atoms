@@ -24,6 +24,7 @@ import Filter from './components/Filter';
 import Facebook from './components/Facebook';
 import Gear from "./components/Gear";
 import Gisat from "./components/Gisat";
+import Globe from "./components/Globe";
 import Info from "./components/Info";
 import Opacity from './components/Opacity';
 import Layers from './components/Layers';
@@ -115,6 +116,8 @@ const icon = key => {
             return <Gear />;
 		case 'gisat':
 			return <Gisat />;
+        case 'globe':
+            return <Globe />;
 		case 'info':
 			return <Info />;
 		case 'layers':

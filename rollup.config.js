@@ -44,6 +44,7 @@ export default {
     '@gisatcz/ptr-utils',
     '@gisatcz/ptr-atoms',
     '@gisatcz/ptr-locales',
+    '@gisatcz/ptr-core',
     'react-rnd',
     ...lodashExternal
   ],

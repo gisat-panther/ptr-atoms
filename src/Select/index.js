@@ -9,6 +9,10 @@ import './select.scss';
 import Key from "./Key";
 import {utils} from '@gisatcz/ptr-utils'
 
+import {
+	isServer,
+} from '@gisatcz/ptr-core';
+
 class Select extends React.PureComponent {
 
     static propTypes = {
@@ -38,6 +42,10 @@ class Select extends React.PureComponent {
         // id of the element where menu will be rendered
         menuPortalTarget: PropTypes.string
     };
+
+    static defaultProps = {
+        menuPortalTarget: null,
+    }
 
     constructor(props) {
         super(props);
@@ -122,6 +130,17 @@ class Select extends React.PureComponent {
             props.options = this.getFormattedOptions();
         }
 
+        // 
+        // Secure ssr support for menuPortalTarget
+        // https://github.com/JedWatson/react-select/issues/1085
+        // 
+        let menuPortalTarget = null;
+        if(!isServer && !props.menuPortalTarget) {
+            menuPortalTarget = document.getElementById("ptr-app");
+        } else if(!isServer && props.menuPortalTarget && typeof props.menuPortalTarget === 'string') {
+            menuPortalTarget = document.getElementById(props.menuPortalTarget);
+        }
+
         // prepare selected value
         if (props.value && typeof props.value === 'string') {
             props.value = _.find(props.options, {value: props.value});
@@ -148,13 +167,13 @@ class Select extends React.PureComponent {
 
         switch (this.props.type) {
             case 'creatable':
-                return this.renderCreatable(props, classes);
+                return this.renderCreatable(props, classes, menuPortalTarget);
             default:
-                return this.renderBase(props, classes);
+                return this.renderBase(props, classes, menuPortalTarget);
         }
     }
 
-    renderBase(props, classes) {
+    renderBase(props, classes, menuPortalTarget) {
         return (
             <SelectBase
                 className={classes}
@@ -177,12 +196,12 @@ class Select extends React.PureComponent {
                         const { zIndex, ...rest } = base;  // remove zIndex from base by destructuring
                         return { ...rest, zIndex: 9999 };
                     }}}
-                menuPortalTarget={document.getElementById(this.props.menuPortalTarget || "ptr-app")}
+                menuPortalTarget={menuPortalTarget}
             />
         );
     }
 
-    renderCreatable(props, classes) {
+    renderCreatable(props, classes, menuPortalTarget) {
         return (
             <SelectCreatable
                 className={classes}
@@ -204,7 +223,7 @@ class Select extends React.PureComponent {
                         const { zIndex, ...rest } = base;  // remove zIndex from base by destructuring
                         return { ...rest, zIndex: 9999 };
                     }}}
-                menuPortalTarget={document.getElementById(this.props.menuPortalTarget || "ptr-app")}
+                menuPortalTarget={menuPortalTarget}
             />
         )
     }

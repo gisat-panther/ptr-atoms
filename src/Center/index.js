@@ -7,7 +7,7 @@ export default props => (
 	<div
 		className={classNames('ptr-center', {
 			horizontally: props.horizontally,
-			vertically: props.vertically
+			vertically: props.vertically,
 		})}
 	>
 		{props.children}

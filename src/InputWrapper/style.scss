@@ -3,9 +3,9 @@
 .ptr-input-wrapper {
 	position: relative;
 	border: 1px solid var(--base40); //todo
-	border-radius: .2rem;
+	border-radius: 0.2rem;
 	margin-bottom: m(1);
-	box-shadow: 0.05rem 0.05rem 0.2rem 0 rgba(0, 0, 0, .07);
+	box-shadow: 0.05rem 0.05rem 0.2rem 0 rgba(0, 0, 0, 0.07);
 }
 .ptr-input-wrapper > label,
 .ptr-input-wrapper > div:first-child {
@@ -19,7 +19,7 @@
 }
 .ptr-input-wrapper .ptr-input-label {
 	display: inline-block;
-	margin-bottom: .2rem;
+	margin-bottom: 0.2rem;
 }
 .ptr-input-wrapper-required {
 	position: absolute;
@@ -32,20 +32,20 @@
 	color: var(--base0); //todo
 	font-size: $b1;
 	line-height: 1.5rem;
-	padding: 0 .5rem;
-	border-radius: 0 0 .2rem .2rem;
-	box-shadow: rgba(125,125,125,.07) 1px 2px 3px 0;
+	padding: 0 0.5rem;
+	border-radius: 0 0 0.2rem 0.2rem;
+	box-shadow: rgba(125, 125, 125, 0.07) 1px 2px 3px 0;
 }
 .ptr-input-wrapper-info {
 	border-top: 1px solid var(--base30);
 	color: var(--base80);
 	font-size: $b1;
-	padding: .5rem 1rem;
+	padding: 0.5rem 1rem;
 	line-height: 1.5;
 }
 .ptr-input-wrapper > div > label {
 	display: block;
 }
-.ptr-input-wrapper > div > label:not(:first-of-type){
+.ptr-input-wrapper > div > label:not(:first-of-type) {
 	margin-top: m(2/3);
 }

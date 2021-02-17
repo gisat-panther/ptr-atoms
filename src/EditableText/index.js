@@ -7,18 +7,17 @@ import './style.scss';
 const DEFAULT_HEIGHT = 36;
 
 class EditableText extends React.PureComponent {
-
 	static propTypes = {
 		disabled: PropTypes.bool,
 		required: PropTypes.bool,
-		unfocusable: PropTypes.bool
+		unfocusable: PropTypes.bool,
 	};
 
-	constructor(props){
+	constructor(props) {
 		super(props);
 
 		this.state = {
-			height: DEFAULT_HEIGHT
+			height: DEFAULT_HEIGHT,
 		};
 
 		this.ref = this.ref.bind(this);
@@ -35,7 +34,7 @@ class EditableText extends React.PureComponent {
 		this.resize();
 	}
 
-	componentWillReceiveProps(nextProps){
+	componentWillReceiveProps(nextProps) {
 		//if (nextProps.value !== this.props.value) {
 		//	this.resize();
 		//}
@@ -47,10 +46,11 @@ class EditableText extends React.PureComponent {
 
 	resize() {
 		if (this.el && typeof this.el.scrollHeight != 'undefined') {
-			let isHeightDifferent = Math.abs(this.el.scrollHeight - this.state.height) > 2;
+			let isHeightDifferent =
+				Math.abs(this.el.scrollHeight - this.state.height) > 2;
 			if (isHeightDifferent && this.el.scrollHeight > DEFAULT_HEIGHT) {
 				this.setState({
-					height: this.el.scrollHeight
+					height: this.el.scrollHeight,
 				});
 			}
 		}
@@ -58,23 +58,23 @@ class EditableText extends React.PureComponent {
 
 	onFocus() {
 		this.setState({
-			focused: true
+			focused: true,
 		});
-		console.log("#####", this.props.onFocus);
+		console.log('#####', this.props.onFocus);
 		if (this.props.onFocus) {
 			this.props.onFocus();
 		}
 	}
-	onBlur(){
+	onBlur() {
 		this.setState({
-			focused: false
+			focused: false,
 		});
 		if (this.props.onBlur) {
 			this.props.onBlur();
 		}
 	}
 
-	onChange(e){
+	onChange(e) {
 		if (this.props.hasOwnProperty('value') && this.props.onChange) {
 			// controlled
 			console.log('#######', e.target.value);
@@ -82,25 +82,25 @@ class EditableText extends React.PureComponent {
 		} else {
 			// uncontrolled
 			this.setState({
-				value: e.target.value
+				value: e.target.value,
 			});
 		}
 	}
 
 	render() {
-		let classes = classNames("ptr-editable-text", {
+		let classes = classNames('ptr-editable-text', {
 			disabled: this.props.disabled,
-			empty: !(this.props.value || this.state && this.state.value),
+			empty: !(this.props.value || (this.state && this.state.value)),
 			large: this.props.large,
 			editing: this.props.editing,
 			required: this.props.required,
 			inverted: this.props.inverted,
-			invisible: this.props.invisible
+			invisible: this.props.invisible,
 		});
 
-		let value = this.props.value || this.state && this.state.value || '';
+		let value = this.props.value || (this.state && this.state.value) || '';
 		let style = {
-			height: value.length ? this.state.height : DEFAULT_HEIGHT
+			height: value.length ? this.state.height : DEFAULT_HEIGHT,
 		};
 
 		if (!this.props.disabled) {
@@ -126,15 +126,17 @@ class EditableText extends React.PureComponent {
 		} else {
 			return (
 				<div className={classes}>
-					{this.props.value || this.state && this.state.value || ''}
+					{this.props.value || (this.state && this.state.value) || ''}
 				</div>
 			);
 		}
 	}
 
-	renderMessage(){
-		return ((this.props.required && !(this.props.value || this.state && this.state.value)) ?
-			(<div className="ptr-editable-text-message">Required field</div>): null);
+	renderMessage() {
+		return this.props.required &&
+			!(this.props.value || (this.state && this.state.value)) ? (
+			<div className="ptr-editable-text-message">Required field</div>
+		) : null;
 	}
 }
 

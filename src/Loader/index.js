@@ -1,11 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import './Loader.scss';
 
 class Loader extends React.PureComponent {
-
 	static propTypes = {
 		background: PropTypes.string,
 		fadeOut: PropTypes.bool,
@@ -16,21 +15,21 @@ class Loader extends React.PureComponent {
 	};
 
 	render() {
-		let screenClasses = classNames("loading-screen", {
+		let screenClasses = classNames('loading-screen', {
 			transparent: this.props.transparent,
-			'fade-out': this.props.fadeOut
+			'fade-out': this.props.fadeOut,
 		});
 
-		let containerClasses = classNames("a-loader-container", {
+		let containerClasses = classNames('a-loader-container', {
 			blackandwhite: this.props.blackandwhite,
-			small: this.props.small
+			small: this.props.small,
 		});
 
 		let style = null;
 		if (this.props.background) {
 			style = {
-				background: this.props.background
-			}
+				background: this.props.background,
+			};
 		}
 
 		return (
@@ -42,7 +41,9 @@ class Loader extends React.PureComponent {
 							<i className="i2"></i>
 							<i className="i3"></i>
 							<i className="i4"></i>
-							{this.props.progress ? (<div className="a-loader-progress">{this.props.progress} %</div>) : null}
+							{this.props.progress ? (
+								<div className="a-loader-progress">{this.props.progress} %</div>
+							) : null}
 						</div>
 					</div>
 				</div>

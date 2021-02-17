@@ -12,21 +12,22 @@ import {withNamespaces, localesUtils} from '@gisatcz/ptr-locales';
 localesUtils.addI18nResources('Atoms#InputWrapper', {cz, en});
 
 class InputWrapper extends React.PureComponent {
-
 	static propTypes = {
 		divInsteadOfLabel: PropTypes.bool,
 		disabled: PropTypes.bool,
 		label: PropTypes.string,
-		required: PropTypes.bool
+		required: PropTypes.bool,
 	};
 
 	render() {
 		const t = this.props.t;
-		let classes = classNames("ptr-input-wrapper", this.props.className, {
-			'disabled': this.props.disabled
+		let classes = classNames('ptr-input-wrapper', this.props.className, {
+			disabled: this.props.disabled,
 		});
 
-		let info = this.props.info ? (<div className="ptr-input-wrapper-info">{this.props.info}</div>) : null;
+		let info = this.props.info ? (
+			<div className="ptr-input-wrapper-info">{this.props.info}</div>
+		) : null;
 		let children = React.Children.map(this.props.children, child => {
 			if (typeof child === 'object' && child.type === InputWrapperInfo) {
 				info = child;
@@ -35,13 +36,19 @@ class InputWrapper extends React.PureComponent {
 			return child;
 		});
 
-		let required = this.props.required ? (<div className="ptr-input-wrapper-required">{t('requiredFieldLabel')}</div>) : null;
+		let required = this.props.required ? (
+			<div className="ptr-input-wrapper-required">
+				{t('requiredFieldLabel')}
+			</div>
+		) : null;
 
 		return this.props.divInsteadOfLabel ? (
 			<div className={classes}>
 				<div>
 					{required}
-					{this.props.label ? <span className="ptr-input-label">{this.props.label}</span> : null}
+					{this.props.label ? (
+						<span className="ptr-input-label">{this.props.label}</span>
+					) : null}
 					{children}
 				</div>
 				{info}
@@ -62,12 +69,5 @@ class InputWrapper extends React.PureComponent {
 export default withNamespaces(['Atoms#InputWrapper'])(InputWrapper);
 
 export const InputWrapperInfo = props => {
-
-	return (
-		<div
-			className="ptr-input-wrapper-info"
-		>
-			{props.children}
-		</div>
-	);
+	return <div className="ptr-input-wrapper-info">{props.children}</div>;
 };

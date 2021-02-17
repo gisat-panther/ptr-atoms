@@ -8,7 +8,6 @@ import Menu from '../Menu';
 import './style.scss';
 
 class Button extends React.PureComponent {
-
 	static propTypes = {
 		circular: PropTypes.bool,
 		className: PropTypes.string,
@@ -25,7 +24,7 @@ class Button extends React.PureComponent {
 		side: PropTypes.string,
 		small: PropTypes.bool,
 		title: PropTypes.string,
-		unfocusable: PropTypes.bool
+		unfocusable: PropTypes.bool,
 	};
 
 	static defaultProps = {
@@ -41,7 +40,7 @@ class Button extends React.PureComponent {
 		this.state = {
 			focused: false,
 			menuOpen: false,
-			held: false
+			held: false,
 		};
 
 		this.onBlur = this.onBlur.bind(this);
@@ -103,9 +102,12 @@ class Button extends React.PureComponent {
 	onMouseDown() {
 		if (this.props.onHold && !this.props.disabled) {
 			this.clearHoldTimeout();
-			this.holdTimeout = setTimeout(this.holdStart.bind(this), this.props.holdStart);
+			this.holdTimeout = setTimeout(
+				this.holdStart.bind(this),
+				this.props.holdStart
+			);
 		}
-	};
+	}
 
 	onMouseOut() {
 		if (this.props.onHold) {
@@ -116,7 +118,7 @@ class Button extends React.PureComponent {
 				});
 			}
 		}
-	};
+	}
 
 	clearHoldTimeout() {
 		clearTimeout(this.holdTimeout);
@@ -125,12 +127,15 @@ class Button extends React.PureComponent {
 
 	holdStart() {
 		this.props.onHold();
-		this.onHoldCallInterval = setInterval(this.props.onHold, this.props.holdStep);
+		this.onHoldCallInterval = setInterval(
+			this.props.onHold,
+			this.props.holdStep
+		);
 
 		this.setState({
 			held: true,
 		});
-	};
+	}
 
 	onClick(e) {
 		if (!this.props.disabled) {
@@ -138,34 +143,30 @@ class Button extends React.PureComponent {
 				this.props.onClick(e);
 			}
 			this.setState({
-				menuOpen: !this.state.menuOpen
+				menuOpen: !this.state.menuOpen,
 			});
 		}
 	}
 
 	onBlur() {
 		this.setState({
-			menuOpen: false
+			menuOpen: false,
 		});
 	}
 
 	onKeyPress(e) {
-		if(e.charCode === 32) {
+		if (e.charCode === 32) {
 			this.onClick(e);
-		} else if (e.charCode === 13){
+		} else if (e.charCode === 13) {
 			this.onClick(e);
 		}
 	}
 
-
 	render() {
-
 		let iconInsert = null;
 		if (this.props.icon) {
 			// determine icon
-			iconInsert = (
-				<Icon icon={this.props.icon} />
-			);
+			iconInsert = <Icon icon={this.props.icon} />;
 		}
 
 		let hasContent = false;
@@ -173,19 +174,15 @@ class Button extends React.PureComponent {
 			if (child) {
 				if (typeof child === 'string') {
 					hasContent = true;
-					return (
-						<div className="ptr-button-caption">{child}</div>
-					);
+					return <div className="ptr-button-caption">{child}</div>;
 				} else if (typeof child === 'object' && child.type === React.Fragment) {
 					hasContent = true;
-					return (
-						<div className="ptr-button-content">{child}</div>
-					);
+					return <div className="ptr-button-content">{child}</div>;
 				} else if (typeof child === 'object' && child.type === Menu) {
 					let props = {
 						...child.props,
 						open: !!this.state.menuOpen,
-						className: classNames(child.props.className, 'ptr-button-menu')
+						className: classNames(child.props.className, 'ptr-button-menu'),
 					};
 					return React.cloneElement(child, props, child.props.children);
 				} else {
@@ -196,7 +193,8 @@ class Button extends React.PureComponent {
 		});
 
 		let classes = classNames(
-			'ptr-button', {
+			'ptr-button',
+			{
 				circular: !!this.props.circular,
 				disabled: this.props.disabled,
 				ghost: !!this.props.ghost,
@@ -223,7 +221,7 @@ class Button extends React.PureComponent {
 				onBlur={this.onBlur}
 				onClick={this.onClick}
 				onKeyPress={this.onKeyPress}
-				tabIndex={(this.props.disabled || this.props.unfocusable) ? "-1" : "0"}
+				tabIndex={this.props.disabled || this.props.unfocusable ? '-1' : '0'}
 				title={this.props.title}
 				ref={this.node}
 				onMouseLeave={this.onMouseOut}
@@ -239,5 +237,11 @@ class Button extends React.PureComponent {
 
 export default Button;
 
-export const Buttons =  ({vertical, children}) => (<div className={classNames("ptr-buttons", {vertical})}>{children}</div>);
-export const ButtonGroup =  ({vertical, className, children}) => (<div className={classNames("ptr-button-group", className, {vertical})}>{children}</div>);
+export const Buttons = ({vertical, children}) => (
+	<div className={classNames('ptr-buttons', {vertical})}>{children}</div>
+);
+export const ButtonGroup = ({vertical, className, children}) => (
+	<div className={classNames('ptr-button-group', className, {vertical})}>
+		{children}
+	</div>
+);

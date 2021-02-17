@@ -6,7 +6,7 @@ const copy = (text, e) => {
 };
 
 export default props => {
-	if (!props.value || typeof props.value !== "string") return null;
+	if (!props.value || typeof props.value !== 'string') return null;
 
 	let shortKey = props.value.substring(0, 4);
 	return (
@@ -16,6 +16,6 @@ export default props => {
 			onClick={copy.bind(null, props.value)}
 		>
 			{shortKey}
-	  </span>
+		</span>
 	);
-}
+};

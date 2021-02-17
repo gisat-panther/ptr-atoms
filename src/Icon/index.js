@@ -1,9 +1,9 @@
 import React from 'react';
 
-import AngleDoubleDown from "./components/AngleDoubleDown";
-import AngleDoubleLeft from "./components/AngleDoubleLeft";
-import AngleDoubleRight from "./components/AngleDoubleRight";
-import AngleDoubleUp from "./components/AngleDoubleUp";
+import AngleDoubleDown from './components/AngleDoubleDown';
+import AngleDoubleLeft from './components/AngleDoubleLeft';
+import AngleDoubleRight from './components/AngleDoubleRight';
+import AngleDoubleUp from './components/AngleDoubleUp';
 import ArrowLeft from './components/ArrowLeft';
 import Calendar from './components/Calendar';
 import Circle from './components/Circle';
@@ -21,29 +21,39 @@ import FileExport from './components/FileExport';
 import FileJson from './components/FileJson';
 import FileXls from './components/FileXls';
 import Filter from './components/Filter';
-import Info from "./components/Info";
+import Facebook from './components/Facebook';
+import Gear from './components/Gear';
+import Gisat from './components/Gisat';
+import Globe from './components/Globe';
+import Info from './components/Info';
 import Opacity from './components/Opacity';
 import Layers from './components/Layers';
 import Legend from './components/Legend';
+import LinkedIn from './components/LinkedIn';
+import Mail from './components/Mail';
 import MapPin from './components/MapPin';
+import Menu from './components/Menu';
 import Minus from './components/Minus';
 import MinusThick from './components/MinusThick';
 import Monitor from './components/Monitor';
 import Monitoring from './components/Monitoring';
 import NorthArrow from './components/NorthArrow';
+import Phone from './components/Phone';
 import Plus from './components/Plus';
 import PlusThick from './components/PlusThick';
 import Pushpin from './components/Pushpin';
 import Restore from './components/Restore';
-import RotateLeft from "./components/RotateLeft";
-import RotateRight from "./components/RotateRight";
+import ResearchGate from './components/ResearchGate';
+import RotateLeft from './components/RotateLeft';
+import RotateRight from './components/RotateRight';
 import Search from './components/Search';
-import Shapefile from "./components/Shapefile";
-import Share from "./components/Share";
+import Shapefile from './components/Shapefile';
+import Share from './components/Share';
 import TiltMore from './components/TiltMore';
 import TiltLess from './components/TiltLess';
 import Times from './components/Times';
-import TriangleDown from "./components/TriangleDown";
+import TriangleDown from './components/TriangleDown';
+import Twitter from './components/Twitter';
 import Upload from './components/Upload';
 import RotateLeftCircularArrow from './components/RotateLeftCircularArrow';
 import RotateRightCircularArrow from './components/RotateRightCircularArrow';
@@ -51,15 +61,15 @@ import RotateRightCircularArrow from './components/RotateRightCircularArrow';
 import './icon.scss';
 
 const icon = key => {
-	switch(key) {
+	switch (key) {
 		case 'angle-double-right':
 			return <AngleDoubleRight />;
 		case 'angle-double-left':
-			return <AngleDoubleLeft/>;
+			return <AngleDoubleLeft />;
 		case 'angle-double-up':
-			return <AngleDoubleUp/>;
+			return <AngleDoubleUp />;
 		case 'angle-double-down':
-			return <AngleDoubleDown/>;
+			return <AngleDoubleDown />;
 		case 'arrow-left':
 		case 'back':
 			return <ArrowLeft />;
@@ -72,7 +82,7 @@ const icon = key => {
 		case 'chevron-right':
 			return <ChevronRight />;
 		case 'crop':
-			return <Crop/>;
+			return <Crop />;
 		case 'delete':
 			return <Delete />; //todo
 		case 'dots':
@@ -85,6 +95,8 @@ const icon = key => {
 			return <Expand />; //todo
 		case 'expand-row':
 			return <ExpandRow />;
+		case 'facebook':
+			return <Facebook />;
 		case 'filter':
 			return <Filter />;
 		case 'file-export':
@@ -99,33 +111,50 @@ const icon = key => {
 		case 'xls':
 		case 'excel':
 			return <FileXls />;
+		case 'gear':
+		case 'settings':
+			return <Gear />;
+		case 'gisat':
+			return <Gisat />;
+		case 'globe':
+			return <Globe />;
 		case 'info':
 			return <Info />;
 		case 'layers':
-			return <Layers/>;
+			return <Layers />;
 		case 'legend':
-			return <Legend/>;
+			return <Legend />;
+		case 'linkedin':
+			return <LinkedIn />;
+		case 'mail':
+			return <Mail />;
 		case 'map-pin':
-			return <MapPin/>;
+			return <MapPin />;
+		case 'menu':
+			return <Menu />;
 		case 'minus':
 			return <Minus />; //todo
 		case 'minus-thick':
 			return <MinusThick />;
 		case 'monitor':
 		case 'display':
-			return <Monitor/>;
+			return <Monitor />;
 		case 'monitoring':
-			return <Monitoring/>;
+			return <Monitoring />;
 		case 'north-arrow':
 			return <NorthArrow />;
 		case 'opacity':
 			return <Opacity />; //todo
+		case 'phone':
+			return <Phone />;
 		case 'plus':
 			return <Plus />;
 		case 'plus-thick':
 			return <PlusThick />;
 		case 'pushpin':
 			return <Pushpin />; //todo
+		case 'researchgate':
+			return <ResearchGate />;
 		case 'restore':
 			return <Restore />;
 		case 'rotate-left':
@@ -147,14 +176,40 @@ const icon = key => {
 			return <Times />;
 		case 'triangle-down':
 			return <TriangleDown />;
+		case 'twitter':
+			return <Twitter />;
 		case 'upload':
 			return <Upload />; //todo
 		default:
 			return (
 				<g>
-					<rect x="4.844" y="4.844" fill="none" stroke="#FF3333" strokeMiterlimit="10" width="22.313" height="22.313"/>
-					<line fill="none" stroke="#FF3333" strokeMiterlimit="10" x1="27.156" y1="4.844" x2="4.844" y2="27.156"/>
-					<line fill="none" stroke="#FF3333" strokeMiterlimit="10" x1="4.844" y1="4.844" x2="27.156" y2="27.156"/>
+					<rect
+						x="4.844"
+						y="4.844"
+						fill="none"
+						stroke="#FF3333"
+						strokeMiterlimit="10"
+						width="22.313"
+						height="22.313"
+					/>
+					<line
+						fill="none"
+						stroke="#FF3333"
+						strokeMiterlimit="10"
+						x1="27.156"
+						y1="4.844"
+						x2="4.844"
+						y2="27.156"
+					/>
+					<line
+						fill="none"
+						stroke="#FF3333"
+						strokeMiterlimit="10"
+						x1="4.844"
+						y1="4.844"
+						x2="27.156"
+						y2="27.156"
+					/>
 				</g>
 			);
 	}
@@ -174,6 +229,6 @@ export default props => (
 		xmlSpace="preserve"
 		className={`ptr-icon ${props.className || ''}`}
 	>
-		{typeof props.icon === "function" ? props.icon() : icon(props.icon)}
+		{typeof props.icon === 'function' ? props.icon() : icon(props.icon)}
 	</svg>
 );

@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import './Input.scss';
-import EditableText from "../EditableText";
+import EditableText from '../EditableText';
 
 class Index extends React.PureComponent {
-
 	static propTypes = {
 		disabled: PropTypes.bool,
 		focus: PropTypes.bool,
@@ -15,13 +14,13 @@ class Index extends React.PureComponent {
 		onChange: PropTypes.func,
 		placeholder: PropTypes.string,
 		unfocusable: PropTypes.bool,
-		value: PropTypes.string
+		value: PropTypes.string,
 	};
 
-	constructor(props){
+	constructor(props) {
 		super(props);
 		this.state = {
-			value: this.props.value
+			value: this.props.value,
 		};
 
 		this.onBlur = this.onBlur.bind(this);
@@ -30,20 +29,20 @@ class Index extends React.PureComponent {
 		this.onFocus = this.onFocus.bind(this);
 	}
 
-	componentWillReceiveProps(nextProps){
+	componentWillReceiveProps(nextProps) {
 		this.setState({
-			value: nextProps.value
+			value: nextProps.value,
 		});
 	}
 
-	onChange(e){
+	onChange(e) {
 		if (this.props.hasOwnProperty('value') && this.props.onChange) {
 			// controlled
 			this.props.onChange(e.target.value);
 		} else {
 			// uncontrolled
 			this.setState({
-				value: e.target.value
+				value: e.target.value,
 			});
 		}
 	}
@@ -51,38 +50,38 @@ class Index extends React.PureComponent {
 	onChangeMultiline(value) {
 		if (this.props.hasOwnProperty('value') && this.props.onChange) {
 			// controlled
-			if (value === "") {
+			if (value === '') {
 				value = null;
 			}
 			this.props.onChange(value);
 		} else {
 			// uncontrolled
 			this.setState({
-				value: value
+				value: value,
 			});
 		}
 	}
 
-	onBlur(){
+	onBlur() {
 		this.setState({
-			focus: false
+			focus: false,
 		});
 	}
 
-	onFocus(){
+	onFocus() {
 		this.setState({
-			focus: true
+			focus: true,
 		});
 	}
 
 	render() {
-		let classes = classNames("ptr-input-text", {
-			'empty': !this.state.value,
-			'focus': this.state.focus,
-			'input': !this.props.multiline,
-			'inverted': !!this.props.inverted,
-			'multiline': this.props.multiline,
-			'disabled': this.props.disabled
+		let classes = classNames('ptr-input-text', {
+			empty: !this.state.value,
+			focus: this.state.focus,
+			input: !this.props.multiline,
+			inverted: !!this.props.inverted,
+			multiline: this.props.multiline,
+			disabled: this.props.disabled,
 		});
 
 		return (
@@ -93,25 +92,25 @@ class Index extends React.PureComponent {
 		);
 	}
 
-	renderInput(){
-
-		let type = "text";
+	renderInput() {
+		let type = 'text';
 		if (this.props.password) {
-			type = "password"
+			type = 'password';
 		} else if (this.props.email) {
-			type = "email"
+			type = 'email';
 		} else if (this.props.date) {
-			type = "date"
+			type = 'date';
 		} else if (this.props.number) {
-			type = "number"
+			type = 'number';
 		}
 
 		return (
-			<input type={type}
+			<input
+				type={type}
 				disabled={this.props.disabled}
 				tabIndex={this.props.unfocusable ? -1 : 0}
 				placeholder={this.state.focus ? null : this.props.placeholder}
-				value={this.state.value || ""}
+				value={this.state.value || ''}
 				name={this.props.name}
 				onChange={this.onChange}
 				autoFocus={this.state.focus}
@@ -122,20 +121,18 @@ class Index extends React.PureComponent {
 	}
 
 	renderMultiline() {
-
 		return (
 			<EditableText
 				invisible
 				disabled={this.props.disabled}
 				unfocusable={this.props.unfocusable}
-				value={this.state.value || ""}
+				value={this.state.value || ''}
 				name={this.props.name}
 				onChange={this.onChangeMultiline}
 				onFocus={this.onFocus}
 				onBlur={this.onBlur}
 			/>
 		);
-
 	}
 }
 

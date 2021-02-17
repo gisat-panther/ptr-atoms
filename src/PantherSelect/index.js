@@ -8,7 +8,6 @@ import Item from './PantherSelectItem';
 import Icon from '../Icon';
 
 class PantherSelect extends React.PureComponent {
-
 	static propTypes = {
 		disabled: PropTypes.bool,
 		currentDisabled: PropTypes.bool, //todo better name
@@ -26,7 +25,7 @@ class PantherSelect extends React.PureComponent {
 	static defaultProps = {
 		disabled: false,
 		currentDisabled: false,
-		currentStyle: null
+		currentStyle: null,
 	};
 
 	constructor(props) {
@@ -37,7 +36,6 @@ class PantherSelect extends React.PureComponent {
 		this.onKeyPress = this.onKeyPress.bind(this);
 		this.onSelect = this.onSelect.bind(this);
 	}
-
 
 	onClick(e) {
 		if (!this.props.disabled && !this.props.currentDisabled) {
@@ -57,9 +55,9 @@ class PantherSelect extends React.PureComponent {
 	}
 
 	onKeyPress(e) {
-		if(e.charCode === 32) {
+		if (e.charCode === 32) {
 			this.onClick(e);
-		} else if (e.charCode === 13){
+		} else if (e.charCode === 13) {
 			this.onClick(e);
 		}
 	}
@@ -73,14 +71,12 @@ class PantherSelect extends React.PureComponent {
 	}
 
 	render() {
-
-
-
 		let classes = classNames(
-			'ptr-panther-select', {
+			'ptr-panther-select',
+			{
 				open: !!this.props.open,
 				disabled: !!this.props.disabled,
-				currentDisabled: !!this.props.currentDisabled
+				currentDisabled: !!this.props.currentDisabled,
 			},
 			this.props.className
 		);
@@ -88,15 +84,28 @@ class PantherSelect extends React.PureComponent {
 		return (
 			<div className={classes} onBlur={this.onBlur}>
 				<div
-					className={classNames("ptr-panther-select-current", this.props.currentClasses, {disabled: !!this.props.disabled})}
-					tabIndex={this.props.disabled || this.props.currentDisabled ? "-1" : "0"}
+					className={classNames(
+						'ptr-panther-select-current',
+						this.props.currentClasses,
+						{disabled: !!this.props.disabled}
+					)}
+					tabIndex={
+						this.props.disabled || this.props.currentDisabled ? '-1' : '0'
+					}
 					onClick={this.onClick}
 					style={this.props.currentStyle}
 				>
 					<div>{this.props.renderCurrent(this.props)}</div>
-					<div className="ptr-panther-select-current-icon"><Icon icon="triangle-down"/></div>
+					<div className="ptr-panther-select-current-icon">
+						<Icon icon="triangle-down" />
+					</div>
 				</div>
-				<div className={classNames("ptr-panther-select-list", this.props.listClasses)}>
+				<div
+					className={classNames(
+						'ptr-panther-select-list',
+						this.props.listClasses
+					)}
+				>
 					<div>
 						<div>
 							<PantherSelectContext.Provider value={{onSelect: this.onSelect}}>
@@ -128,8 +137,6 @@ class PantherSelect extends React.PureComponent {
 	// 	});
 	//
 	// }
-
-
 }
 
 export const PantherSelectItem = Item;

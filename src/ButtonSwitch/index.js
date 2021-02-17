@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import Button, {ButtonGroup} from '../Button';
 
 class ButtonSwitch extends React.PureComponent {
-
 	static propTypes = {
 		disabled: PropTypes.bool,
 		ghost: PropTypes.bool,
@@ -15,24 +14,23 @@ class ButtonSwitch extends React.PureComponent {
 		onClick: PropTypes.func.isRequired,
 		small: PropTypes.bool,
 		title: PropTypes.string,
-		unfocusable: PropTypes.bool
+		unfocusable: PropTypes.bool,
 	};
 
 	static defaultProps = {
-		disabled: false
+		disabled: false,
 	};
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			focused: false
+			focused: false,
 		};
 
 		this.onBlur = this.onBlur.bind(this);
 		this.onClick = this.onClick.bind(this);
 		this.onKeyPress = this.onKeyPress.bind(this);
 	}
-
 
 	onClick(value, e) {
 		if (!this.props.disabled) {
@@ -42,22 +40,18 @@ class ButtonSwitch extends React.PureComponent {
 		}
 	}
 
-	onBlur() {
-	
-	}
+	onBlur() {}
 
 	onKeyPress(e) {
-		if(e.charCode === 32) {
+		if (e.charCode === 32) {
 			this.onClick(e);
-		} else if (e.charCode === 13){
+		} else if (e.charCode === 13) {
 			this.onClick(e);
 		}
 	}
 
-
 	render() {
-
-		 let {onClick, ...switchProps} = this.props;
+		let {onClick, ...switchProps} = this.props;
 
 		let content = React.Children.map(this.props.children, child => {
 			let {active, value, ...props} = child.props;
@@ -65,13 +59,14 @@ class ButtonSwitch extends React.PureComponent {
 				...switchProps, //todo should be done by ButtonGroup ?
 				...props,
 				active: active, //or state
-				onClick: this.onClick.bind(this, value)
+				onClick: this.onClick.bind(this, value),
 			};
 			return React.cloneElement(child, props, child.props.children);
 		});
 
 		let classes = classNames(
-			'ptr-button-switch', {
+			'ptr-button-switch',
+			{
 				disabled: this.props.disabled,
 				ghost: !!this.props.ghost,
 				invisible: !!this.props.invisible,
@@ -88,7 +83,7 @@ class ButtonSwitch extends React.PureComponent {
 				onBlur={this.onBlur}
 				onClick={this.onClick}
 				onKeyPress={this.onKeyPress}
-				tabIndex={(this.props.disabled || this.props.unfocusable) ? "-1" : "0"}
+				tabIndex={this.props.disabled || this.props.unfocusable ? '-1' : '0'}
 				title={this.props.title}
 			>
 				{content}
@@ -100,12 +95,7 @@ class ButtonSwitch extends React.PureComponent {
 export default ButtonSwitch;
 
 export const ButtonSwitchOption = ({active, onClick, children, ...props}) => (
-	<Button
-		className={classNames({active})}
-		onClick={onClick}
-		{...props}
-	>
+	<Button className={classNames({active})} onClick={onClick} {...props}>
 		{children}
 	</Button>
 );
-

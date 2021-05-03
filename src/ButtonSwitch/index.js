@@ -94,8 +94,16 @@ class ButtonSwitch extends React.PureComponent {
 
 export default ButtonSwitch;
 
-export const ButtonSwitchOption = ({active, onClick, children, ...props}) => (
-	<Button className={classNames({active})} onClick={onClick} {...props}>
-		{children}
-	</Button>
-);
+export const ButtonSwitchOption = ({
+	active,
+	onClick,
+	children,
+	className,
+	...props
+}) => {
+	return (
+		<Button className={classNames({active})} onClick={onClick} {...props}>
+			{children}
+		</Button>
+	);
+};

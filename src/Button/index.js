@@ -172,7 +172,7 @@ class Button extends React.PureComponent {
 		let hasContent = false;
 		let content = React.Children.map(this.props.children, child => {
 			if (child) {
-				if (typeof child === 'string') {
+				if (typeof child === 'string' || typeof child === 'number') {
 					hasContent = true;
 					return <div className="ptr-button-caption">{child}</div>;
 				} else if (typeof child === 'object' && child.type === React.Fragment) {

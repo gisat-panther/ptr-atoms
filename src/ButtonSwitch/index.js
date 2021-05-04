@@ -52,11 +52,12 @@ class ButtonSwitch extends React.PureComponent {
 
 	render() {
 		let {onClick, ...switchProps} = this.props;
+		let {className, ...restSwitchProps} = switchProps;
 
 		let content = React.Children.map(this.props.children, child => {
 			let {active, value, ...props} = child.props;
 			props = {
-				...switchProps, //todo should be done by ButtonGroup ?
+				...restSwitchProps, //todo should be done by ButtonGroup ?
 				...props,
 				active: active, //or state
 				onClick: this.onClick.bind(this, value),
@@ -102,7 +103,11 @@ export const ButtonSwitchOption = ({
 	...props
 }) => {
 	return (
-		<Button className={classNames({active})} onClick={onClick} {...props}>
+		<Button
+			className={classNames(className, {active})}
+			onClick={onClick}
+			{...props}
+		>
 			{children}
 		</Button>
 	);

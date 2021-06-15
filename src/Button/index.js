@@ -89,13 +89,11 @@ class Button extends React.PureComponent {
 
 	onTouchStart(evt) {
 		evt.stopPropagation();
-		evt.preventDefault();
 		this.onMouseDown(evt);
 	}
 
 	onTouchEnd(evt) {
 		evt.stopPropagation();
-		evt.preventDefault();
 		this.onMouseOut(evt);
 	}
 

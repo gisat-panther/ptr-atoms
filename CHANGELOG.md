@@ -1,3 +1,15 @@
+# v1.3.13 (Wed Jun 16 2021)
+
+#### 🐾 Patch
+
+- Fix/touch events [#24](https://github.com/gisat-panther/ptr-atoms/pull/24) ([@vlach1989](https://github.com/vlach1989))
+
+#### Authors: 1
+
+- Pavel Vlach ([@vlach1989](https://github.com/vlach1989))
+
+---
+
 # v1.3.12 (Tue May 04 2021)
 
 #### 🐾 Patch

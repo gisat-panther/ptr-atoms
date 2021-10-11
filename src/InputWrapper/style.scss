@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import '~@gisatcz/ptr-core/lib/styles/_variables';
 
 .ptr-input-wrapper {
@@ -10,7 +11,7 @@
 .ptr-input-wrapper > label,
 .ptr-input-wrapper > div:first-child {
 	display: block;
-	padding: m(2/3);
+	padding: m(math.div(2, 3));
 }
 .ptr-input-wrapper label span,
 .ptr-input-wrapper div span {
@@ -47,5 +48,5 @@
 	display: block;
 }
 .ptr-input-wrapper > div > label:not(:first-of-type) {
-	margin-top: m(2/3);
+	margin-top: m(math.div(2, 3));
 }

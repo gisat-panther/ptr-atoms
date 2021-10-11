@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import '~@gisatcz/ptr-core/lib/styles/_variables';
 
 /*
@@ -14,7 +15,7 @@
 .ptr-select-container .ptr-select__control {
 	background: var(--base0); // todo
 	border-radius: 0.25rem;
-	height: m(4/3);
+	height: m(math.div(4, 3));
 	min-height: initial;
 	min-width: 10rem;
 	border-color: var(--base50); // todo
@@ -186,7 +187,7 @@
 	border-bottom: 1px dashed var(--base30); // todo
 	font-size: $a2;
 	font-weight: 400;
-	height: m(5/3);
+	height: m(math.div(5, 3));
 }
 
 .ptr-select-container.value-is-title .ptr-select__value-container > div {

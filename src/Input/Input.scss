@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import '~@gisatcz/ptr-core/lib/styles/_variables';
 
 .ptr-input-text {
@@ -8,7 +9,7 @@
 	border: 1px solid var(--base50); // todo
 }
 .ptr-input-text.input {
-	height: m(4/3);
+	height: m(math.div(4, 3));
 }
 .ptr-input-text input {
 	background: none;
@@ -37,7 +38,7 @@
 
 /* Multiline */
 .ptr-input-text.multiline {
-	min-height: m(4/3);
+	min-height: m(math.div(4, 3));
 }
 .ptr-input-text.multiline > div {
 	width: 100%;

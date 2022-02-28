@@ -16,6 +16,7 @@ import Download from './components/Download';
 import Edit from './components/Edit';
 import Expand from './components/Expand';
 import ExpandRow from './components/ExpandRow';
+import ExternalLink from './components/ExternalLink';
 import FileCsv from './components/FileCsv';
 import FileExport from './components/FileExport';
 import FileJson from './components/FileJson';
@@ -95,6 +96,8 @@ const icon = key => {
 			return <Expand />; //todo
 		case 'expand-row':
 			return <ExpandRow />;
+		case 'external-link':
+			return <ExternalLink />;
 		case 'facebook':
 			return <Facebook />;
 		case 'filter':

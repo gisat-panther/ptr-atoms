@@ -1,3 +1,16 @@
+# v1.5.0 (Tue Mar 01 2022)
+
+#### 🚀 Enhancement
+
+- add cross-env to dev dependencies [#31](https://github.com/gisat-panther/ptr-atoms/pull/31) ([@vlach1989](https://github.com/vlach1989))
+- Feature/external link icon [#29](https://github.com/gisat-panther/ptr-atoms/pull/29) ([@vlach1989](https://github.com/vlach1989))
+
+#### Authors: 1
+
+- Pavel Vlach ([@vlach1989](https://github.com/vlach1989))
+
+---
+
 # v1.4.0 (Mon Oct 11 2021)
 
 #### 🚀 Enhancement

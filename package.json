@@ -2,6 +2,7 @@
 	"name": "@gisatcz/ptr-atoms",
 	"version": "1.5.0",
 	"description": "Panther FE atoms",
+	"sideEffects": false,
 	"keywords": [
 		"panther",
 		"gisat"
@@ -15,7 +16,7 @@
 	},
 	"style": "dist/style.css",
 	"main": "dist/index.js",
-	"module": "dist/index.es.js",
+	"module": "lib/index.js",
 	"files": [
 		"dist",
 		"lib"
@@ -30,6 +31,7 @@
 		"react-dom": "^16.13.1 || ^17.0.2 || ^18.1.0"
 	},
 	"dependencies": {
+		"@babel/runtime": "^7.18.3",
 		"@gisatcz/ptr-core": "^1.6.2-1",
 		"@gisatcz/ptr-locales": "^1.4.1-1",
 		"@gisatcz/ptr-utils": "^1.5.6-2",
@@ -43,7 +45,7 @@
 		"@babel/core": "^7.17.5",
 		"@babel/plugin-transform-runtime": "^7.17.0",
 		"@babel/preset-env": "^7.16.11",
-		"@babel/preset-react": "^7.16.7",
+		"@babel/preset-react": "^7.17.12",
 		"@gisatcz/prettier-config": "^0.0.3",
 		"@rollup/plugin-babel": "^5.3.1",
 		"@rollup/plugin-commonjs": "^22.0.0",
@@ -67,15 +69,15 @@
 	},
 	"scripts": {
 		"clean": "rimraf dist",
-		"start": "run-s clean && run-p start:es start:cjs start:lib:es",
-		"start:lib:es": "cross-env BABEL_ENV=es babel --watch src -d lib --verbose",
-		"start:cjs": "cross-env NODE_ENV=cjs rollup -c -w",
-		"start:es": "cross-env NODE_ENV=es rollup -c -w",
-		"build": "run-s clean && run-p build:es build:cjs build:lib:es",
-		"build:es": "cross-env NODE_ENV=es rollup -c",
-		"build:cjs": "cross-env NODE_ENV=cjs rollup -c",
-		"build:lib:es": "npm-run-all build:babel:lib:es copy:stylesheets copy:jsons copy:assets",
-		"build:babel:lib:es": "cross-env BABEL_ENV=es babel src -d lib",
+		"start": "cross-env BABEL_ENV=development run-s clean && run-p start:es start:cjs start:lib:es",
+		"start:lib:es": "cross-env BABEL_ENV=development babel --watch src -d lib --verbose",
+		"start:cjs": "cross-env BABEL_ENV=development NODE_ENV=cjs rollup -c -w",
+		"start:es": "cross-env BABEL_ENV=development NODE_ENV=es rollup -c -w",
+		"build": "cross-env BABEL_ENV=production run-s clean && run-p build:es build:cjs build:lib:es",
+		"build:es": "cross-env BABEL_ENV=production NODE_ENV=es rollup -c",
+		"build:cjs": "cross-env BABEL_ENV=production NODE_ENV=cjs rollup -c",
+		"build:lib:es": "cross-env BABEL_ENV=production npm-run-all build:babel:lib:es copy:stylesheets copy:jsons copy:assets",
+		"build:babel:lib:es": "cross-env BABEL_ENV=production babel src -d lib",
 		"copy:jsons": "node ./build/copy-jsons.js",
 		"copy:stylesheets": "node ./build/copy-stylesheets.js",
 		"copy:assets": "node ./build/copy-assets.js",

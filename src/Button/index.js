@@ -86,8 +86,8 @@ const Button = ({
 	};
 
 	const removeTouchListeners = () => {
-		node.current.removeEventListener('touchstart', onTouchStart);
-		node.current.removeEventListener('touchend', onTouchEnd);
+		node.current?.removeEventListener('touchstart', onTouchStart);
+		node.current?.removeEventListener('touchend', onTouchEnd);
 	};
 
 	useEffect(() => {

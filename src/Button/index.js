@@ -43,17 +43,6 @@ const Button = ({
 	const holdTimeout = useRef();
 	const onHoldCallInterval = useRef();
 
-	useEffect(() => {
-		if (typeof onHold === 'function') {
-			addTouchListeners();
-		}
-		return () => {
-			if (typeof onHold === 'function') {
-				removeTouchListeners();
-			}
-		};
-	}, []);
-
 	const clearHoldTimeout = () => {
 		clearTimeout(holdTimeout.current);
 		clearInterval(onHoldCallInterval.current);
@@ -100,6 +89,17 @@ const Button = ({
 		node.current.removeEventListener('touchstart', onTouchStart);
 		node.current.removeEventListener('touchend', onTouchEnd);
 	};
+
+	useEffect(() => {
+		if (typeof onHold === 'function') {
+			addTouchListeners();
+		}
+		return () => {
+			if (typeof onHold === 'function') {
+				removeTouchListeners();
+			}
+		};
+	}, []);
 
 	const onHoldRef = useRef();
 	useEffect(() => {

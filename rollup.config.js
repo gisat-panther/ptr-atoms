@@ -35,6 +35,8 @@ const lodashExternal = [
 export default {
 	input: 'src/index.js',
 	external: [
+		'react-select/creatable',
+		'react/jsx-runtime',
 		'react',
 		'prop-types',
 		'classnames',

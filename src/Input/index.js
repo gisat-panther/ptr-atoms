@@ -1,139 +1,139 @@
-import React from 'react';
+import {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import './Input.scss';
 import EditableText from '../EditableText';
 
-class Index extends React.PureComponent {
-	static propTypes = {
-		disabled: PropTypes.bool,
-		focus: PropTypes.bool,
-		inverted: PropTypes.bool,
-		name: PropTypes.string,
-		onChange: PropTypes.func,
-		placeholder: PropTypes.string,
-		unfocusable: PropTypes.bool,
-		value: PropTypes.string,
+const Index = ({
+	children,
+	disabled,
+	multiline,
+	inverted,
+	password,
+	email,
+	date,
+	number,
+	name,
+	onChange,
+	placeholder,
+	unfocusable,
+	value,
+}) => {
+	const [stateValue, setStateValue] = useState(value);
+	const [stateFocus, setStateFocus] = useState();
+
+	useEffect(() => {
+		if (value !== stateValue) {
+			setStateValue(value);
+		}
+	}, [value]);
+
+	const onChangeSelf = e => {
+		if ((value || value === '') && onChange) {
+			// controlled
+			onChange(e.target.value);
+		} else {
+			// uncontrolled
+			setStateValue(e.target.value);
+		}
 	};
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			value: this.props.value,
-		};
-
-		this.onBlur = this.onBlur.bind(this);
-		this.onChange = this.onChange.bind(this);
-		this.onChangeMultiline = this.onChangeMultiline.bind(this);
-		this.onFocus = this.onFocus.bind(this);
-	}
-
-	componentWillReceiveProps(nextProps) {
-		this.setState({
-			value: nextProps.value,
-		});
-	}
-
-	onChange(e) {
-		if (this.props.hasOwnProperty('value') && this.props.onChange) {
+	const onChangeMultiline = newValue => {
+		if ((value || value === '') && onChange) {
 			// controlled
-			this.props.onChange(e.target.value);
-		} else {
-			// uncontrolled
-			this.setState({
-				value: e.target.value,
-			});
-		}
-	}
-
-	onChangeMultiline(value) {
-		if (this.props.hasOwnProperty('value') && this.props.onChange) {
-			// controlled
-			if (value === '') {
-				value = null;
+			if (newValue === '') {
+				newValue = null;
 			}
-			this.props.onChange(value);
+			onChange(newValue);
 		} else {
 			// uncontrolled
-			this.setState({
-				value: value,
-			});
+			setStateValue(newValue);
 		}
-	}
+	};
 
-	onBlur() {
-		this.setState({
-			focus: false,
-		});
-	}
+	const onBlur = () => {
+		setStateFocus(false);
+	};
 
-	onFocus() {
-		this.setState({
-			focus: true,
-		});
-	}
+	const onFocus = () => {
+		setStateFocus(true);
+	};
 
-	render() {
-		let classes = classNames('ptr-input-text', {
-			empty: !this.state.value,
-			focus: this.state.focus,
-			input: !this.props.multiline,
-			inverted: !!this.props.inverted,
-			multiline: this.props.multiline,
-			disabled: this.props.disabled,
-		});
-
-		return (
-			<div className={classes}>
-				{this.props.multiline ? this.renderMultiline() : this.renderInput()}
-				{this.props.children}
-			</div>
-		);
-	}
-
-	renderInput() {
+	const renderInput = () => {
 		let type = 'text';
-		if (this.props.password) {
+		if (password) {
 			type = 'password';
-		} else if (this.props.email) {
+		} else if (email) {
 			type = 'email';
-		} else if (this.props.date) {
+		} else if (date) {
 			type = 'date';
-		} else if (this.props.number) {
+		} else if (number) {
 			type = 'number';
 		}
 
 		return (
 			<input
 				type={type}
-				disabled={this.props.disabled}
-				tabIndex={this.props.unfocusable ? -1 : 0}
-				placeholder={this.state.focus ? null : this.props.placeholder}
-				value={this.state.value || ''}
-				name={this.props.name}
-				onChange={this.onChange}
-				autoFocus={this.state.focus}
-				onBlur={this.onBlur}
-				onFocus={this.onFocus}
+				disabled={disabled}
+				tabIndex={unfocusable ? -1 : 0}
+				placeholder={stateFocus ? null : placeholder}
+				value={stateValue || ''}
+				name={name}
+				onChange={onChangeSelf}
+				autoFocus={stateFocus}
+				onBlur={onBlur}
+				onFocus={onFocus}
 			/>
 		);
-	}
+	};
 
-	renderMultiline() {
+	const renderMultiline = () => {
 		return (
 			<EditableText
 				invisible
-				disabled={this.props.disabled}
-				unfocusable={this.props.unfocusable}
-				value={this.state.value || ''}
-				name={this.props.name}
-				onChange={this.onChangeMultiline}
-				onFocus={this.onFocus}
-				onBlur={this.onBlur}
+				disabled={disabled}
+				unfocusable={unfocusable}
+				value={stateValue || ''}
+				name={name}
+				onChange={onChangeMultiline}
+				onFocus={onFocus}
+				onBlur={onBlur}
 			/>
 		);
-	}
-}
+	};
+
+	let classes = classNames('ptr-input-text', {
+		empty: !stateValue,
+		focus: stateFocus,
+		input: !multiline,
+		inverted: !!inverted,
+		multiline: multiline,
+		disabled: disabled,
+	});
+
+	return (
+		<div className={classes}>
+			{multiline ? renderMultiline() : renderInput()}
+			{children}
+		</div>
+	);
+};
+
+Index.propTypes = {
+	children: PropTypes.node,
+	disabled: PropTypes.bool,
+	inverted: PropTypes.bool,
+	name: PropTypes.string,
+	onChange: PropTypes.func,
+	placeholder: PropTypes.string,
+	unfocusable: PropTypes.bool,
+	value: PropTypes.string,
+	password: PropTypes.bool,
+	email: PropTypes.bool,
+	date: PropTypes.bool,
+	number: PropTypes.bool,
+	multiline: PropTypes.bool,
+};
 
 export default Index;

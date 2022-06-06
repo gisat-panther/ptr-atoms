@@ -1,6 +1,4 @@
-import React from 'react';
-
-export default props => (
+export default () => (
 	<g>
 		<circle className="line" cx="6.998" cy="16" r="3.15" />
 		<circle className="line" cx="24.005" cy="8.513" r="3.149" />

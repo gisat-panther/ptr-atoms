@@ -1,6 +1,4 @@
-import React from 'react';
-
-export default props => (
+export default () => (
 	<g>
 		<path
 			d="M5 5 l0 17 l5 0 l0 -12 l12 0 l0 -5"

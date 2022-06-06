@@ -1,21 +1,22 @@
-import React from 'react';
-
+import PropTypes from 'prop-types';
 const copy = (text, e) => {
 	navigator.clipboard.writeText(text);
 	e.stopPropagation();
 };
 
-export default props => {
-	if (!props.value || typeof props.value !== 'string') return null;
+const Key = ({value}) => {
+	if (!value || typeof value !== 'string') return null;
 
-	let shortKey = props.value.substring(0, 4);
+	let shortKey = value.substring(0, 4);
 	return (
-		<span
-			className="option-id"
-			title={props.value}
-			onClick={copy.bind(null, props.value)}
-		>
+		<span className="option-id" title={value} onClick={copy.bind(null, value)}>
 			{shortKey}
 		</span>
 	);
 };
+
+Key.propTypes = {
+	value: PropTypes.string,
+};
+
+export default Key;

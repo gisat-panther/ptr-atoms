@@ -1,4 +1,4 @@
-import React from 'react';
+import {Children} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -11,63 +11,73 @@ import {withNamespaces, localesUtils} from '@gisatcz/ptr-locales';
 // add locales to component namespace
 localesUtils.addI18nResources('Atoms#InputWrapper', {cz, en});
 
-class InputWrapper extends React.PureComponent {
-	static propTypes = {
-		divInsteadOfLabel: PropTypes.bool,
-		disabled: PropTypes.bool,
-		label: PropTypes.string,
-		required: PropTypes.bool,
-	};
+const InputWrapper = ({
+	divInsteadOfLabel,
+	disabled,
+	label,
+	required,
+	className,
+	children,
+	info,
+	t,
+}) => {
+	let classes = classNames('ptr-input-wrapper', className, {
+		disabled: disabled,
+	});
 
-	render() {
-		const t = this.props.t;
-		let classes = classNames('ptr-input-wrapper', this.props.className, {
-			disabled: this.props.disabled,
-		});
-
-		let info = this.props.info ? (
-			<div className="ptr-input-wrapper-info">{this.props.info}</div>
-		) : null;
-		let children = React.Children.map(this.props.children, child => {
-			if (typeof child === 'object' && child.type === InputWrapperInfo) {
-				info = child;
-				return null;
-			}
+	let infoEl = info ? (
+		<div className="ptr-input-wrapper-info">{info}</div>
+	) : null;
+	const childrenEl = Children.map(children, child => {
+		if (typeof child === 'object' && child.type === InputWrapperInfo) {
+			infoEl = child;
+			return null;
+		} else {
 			return child;
-		});
+		}
+	});
+	const requiredEl = required ? (
+		<div className="ptr-input-wrapper-required">{t('requiredFieldLabel')}</div>
+	) : null;
 
-		let required = this.props.required ? (
-			<div className="ptr-input-wrapper-required">
-				{t('requiredFieldLabel')}
+	return divInsteadOfLabel ? (
+		<div className={classes}>
+			<div>
+				{requiredEl}
+				{label ? <span className="ptr-input-label">{label}</span> : null}
+				{childrenEl}
 			</div>
-		) : null;
+			{infoEl}
+		</div>
+	) : (
+		<div className={classes}>
+			<label>
+				{requiredEl}
+				<span className="ptr-input-label">{label}</span>
+				{childrenEl}
+			</label>
+			{infoEl}
+		</div>
+	);
+};
 
-		return this.props.divInsteadOfLabel ? (
-			<div className={classes}>
-				<div>
-					{required}
-					{this.props.label ? (
-						<span className="ptr-input-label">{this.props.label}</span>
-					) : null}
-					{children}
-				</div>
-				{info}
-			</div>
-		) : (
-			<div className={classes}>
-				<label>
-					{required}
-					<span className="ptr-input-label">{this.props.label}</span>
-					{children}
-				</label>
-				{info}
-			</div>
-		);
-	}
-}
+InputWrapper.propTypes = {
+	divInsteadOfLabel: PropTypes.bool,
+	disabled: PropTypes.bool,
+	label: PropTypes.string,
+	required: PropTypes.bool,
+	className: PropTypes.string,
+	t: PropTypes.func,
+	children: PropTypes.node,
+	info: PropTypes.node,
+};
 
 export default withNamespaces(['Atoms#InputWrapper'])(InputWrapper);
 
-export const InputWrapperInfo = props => {
-	return <div className="ptr-input-wrapper-info">{props.children}</div>;
+export const InputWrapperInfo = ({children}) => {
+	return <div className="ptr-input-wrapper-info">{children}</div>;
+};
+
+InputWrapperInfo.propTypes = {
+	children: PropTypes.node,
 };

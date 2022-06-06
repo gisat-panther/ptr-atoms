@@ -1,6 +1,4 @@
-import React from 'react';
-
-export default props => (
+export default () => (
 	<g>
 		<rect className="line" x="5.578" y="15" width="21.125" height="2" />
 		<polygon

@@ -1,6 +1,4 @@
-import React from 'react';
-
-export default props => (
+export default () => (
 	<g transform="matrix(0.05117622,0,0,0.05117622,2.9443694,-1.5263058)">
 		<path
 			className="line"

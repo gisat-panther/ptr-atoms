@@ -1,5 +1,4 @@
-import React from 'react';
-
+import PropTypes from 'prop-types';
 import AngleDoubleDown from './components/AngleDoubleDown';
 import AngleDoubleLeft from './components/AngleDoubleLeft';
 import AngleDoubleRight from './components/AngleDoubleRight';
@@ -56,12 +55,12 @@ import Times from './components/Times';
 import TriangleDown from './components/TriangleDown';
 import Twitter from './components/Twitter';
 import Upload from './components/Upload';
-import RotateLeftCircularArrow from './components/RotateLeftCircularArrow';
-import RotateRightCircularArrow from './components/RotateRightCircularArrow';
+// import RotateLeftCircularArrow from './components/RotateLeftCircularArrow';
+// import RotateRightCircularArrow from './components/RotateRightCircularArrow';
 
 import './icon.scss';
 
-const icon = key => {
+const getIcon = key => {
 	switch (key) {
 		case 'angle-double-right':
 			return <AngleDoubleRight />;
@@ -218,9 +217,9 @@ const icon = key => {
 	}
 };
 
-export default props => (
+const Icon = ({style, className, icon}) => (
 	<svg
-		style={props.style} //todo better solution (used for transform: rotate)
+		style={style} //todo better solution (used for transform: rotate)
 		version="1.1"
 		xmlns="http://www.w3.org/2000/svg"
 		xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -230,8 +229,16 @@ export default props => (
 		height="32px"
 		viewBox="0 0 32 32"
 		xmlSpace="preserve"
-		className={`ptr-icon ${props.className || ''}`}
+		className={`ptr-icon ${className || ''}`}
 	>
-		{typeof props.icon === 'function' ? props.icon() : icon(props.icon)}
+		{typeof icon === 'function' ? icon() : getIcon(icon)}
 	</svg>
 );
+
+Icon.propTypes = {
+	className: PropTypes.string,
+	icon: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+	style: PropTypes.object,
+};
+
+export default Icon;

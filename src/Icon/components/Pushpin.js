@@ -1,6 +1,4 @@
-import React from 'react';
-
-export default props => (
+export default () => (
 	<g transform="scale(0.016,-0.016) translate(450,-1636)">
 		<path
 			className="line"

@@ -1,7 +1,6 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import SelectBase from 'react-select';
-import SelectCreatable from 'react-select/lib/Creatable';
+import SelectCreatable from 'react-select/creatable';
 import classnames from 'classnames';
 import _ from 'lodash';
 
@@ -11,192 +10,180 @@ import {utils} from '@gisatcz/ptr-utils';
 
 import {isServer} from '@gisatcz/ptr-core';
 
-class Select extends React.PureComponent {
-	static propTypes = {
-		className: PropTypes.string, // className for the outer element
-		clearable: PropTypes.bool,
-		components: PropTypes.object,
-		disabled: PropTypes.bool,
-		formatOptionLabel: PropTypes.func, // custom option rendering
-		multi: PropTypes.bool,
-		onChange: PropTypes.func, // onChange handler: function (newValue) {}
-		options: PropTypes.array,
-		optionLabel: PropTypes.string, // path to label
-		optionValue: PropTypes.string, // path to value
-		type: PropTypes.string,
-		unfocusable: PropTypes.bool,
-		value: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-		placeholder: PropTypes.string,
-		valueIsTitle: PropTypes.bool,
-		withKeyPrefix: PropTypes.bool,
-
-		// creatable
-		onCreate: PropTypes.func,
-
-		// id of the element where menu will be rendered
-		menuPortalTarget: PropTypes.string,
-	};
-
-	static defaultProps = {
-		menuPortalTarget: null,
-	};
-
-	constructor(props) {
-		super(props);
-
-		this.getLabel = this.getLabel.bind(this);
-		this.onChange = this.onChange.bind(this);
-		this.onCreate = this.onCreate.bind(this);
-	}
-
-	getFormattedOptions() {
-		return this.props.options.map(option => {
+const Select = ({
+	className,
+	clearable,
+	components,
+	disabled,
+	formatOptionLabel,
+	multi,
+	onChange,
+	options,
+	optionLabel,
+	optionValue,
+	type,
+	unfocusable,
+	value,
+	placeholder,
+	valueIsTitle,
+	withKeyPrefix,
+	onCreate,
+	menuPortalTarget = null,
+}) => {
+	const getFormattedOptions = () => {
+		return options.map(option => {
 			let label = option;
 			let value = option;
 
-			if (this.props.optionValue) {
-				value = _.get(option, this.props.optionValue);
+			if (optionValue) {
+				value = _.get(option, optionValue);
 			}
 
-			if (this.props.optionLabel) {
-				label = _.get(option, this.props.optionLabel);
+			if (optionLabel) {
+				label = _.get(option, optionLabel);
 			}
 
 			return {value, label, isDisabled: option.isDisabled};
 		});
-	}
+	};
 
-	onChange(selectedObject) {
+	const onChangeSelf = selectedObject => {
 		// multiselect
 		if (_.isArray(selectedObject)) {
 			if (_.isEmpty(selectedObject)) {
-				this.props.onChange(null);
-			} else if (this.props.optionValue) {
+				onChange(null);
+			} else if (optionValue) {
 				let selected = [];
 				_.forEach(selectedObject, item => {
-					let originalObject = _.find(this.props.options, option => {
-						return (
-							(item && item.value) === _.get(option, this.props.optionValue)
-						);
+					let originalObject = _.find(options, option => {
+						return (item && item.value) === _.get(option, optionValue);
 					});
 					if (originalObject) {
 						selected.push(originalObject);
 					}
 				});
-				this.props.onChange(selected);
+				onChange(selected);
 			} else {
 				let values = selectedObject.map(object => object.value);
-				this.props.onChange(values);
+				onChange(values);
 			}
 		} else {
-			if (this.props.optionValue) {
-				let selected = _.find(this.props.options, option => {
+			if (optionValue) {
+				let selected = _.find(options, option => {
 					return (
-						_.get(option, this.props.optionValue) ===
+						_.get(option, optionValue) ===
 						(selectedObject && selectedObject.value)
 					);
 				});
 				if (selected) {
-					this.props.onChange(selected);
+					onChange(selected);
 				} else {
-					this.props.onChange(null);
+					onChange(null);
 				}
 			} else {
-				this.props.onChange(selectedObject ? selectedObject.value : null);
+				onChange(selectedObject ? selectedObject.value : null);
 			}
 		}
-	}
+	};
 
-	onCreate(label) {
+	const onCreateSelf = label => {
 		let key = utils.uuid();
-		if (this.props.optionValue && this.props.optionLabel) {
+		if (optionValue && optionLabel) {
 			let data = {};
-			_.set(data, this.props.optionValue, key);
-			_.set(data, this.props.optionLabel, label);
-			this.props.onCreate(data);
+			_.set(data, optionValue, key);
+			_.set(data, optionLabel, label);
+			onCreate(data);
 		} else {
-			this.props.onCreate(label);
+			onCreate(label);
 		}
+	};
+
+	let props = {
+		className,
+		clearable,
+		components,
+		disabled,
+		formatOptionLabel,
+		multi,
+		onChange,
+		options,
+		optionLabel,
+		optionValue,
+		type,
+		unfocusable,
+		value,
+		placeholder,
+		valueIsTitle,
+		withKeyPrefix,
+		onCreate,
+		menuPortalTarget,
+	};
+
+	// prepare options
+	if (!props.options) {
+		props.options = [];
+	} else {
+		props.options = getFormattedOptions();
 	}
 
-	render() {
-		let props = {...this.props};
-
-		// prepare options
-		if (!props.options) {
-			props.options = [];
-		} else {
-			props.options = this.getFormattedOptions();
-		}
-
-		//
-		// Secure ssr support for menuPortalTarget
-		// https://github.com/JedWatson/react-select/issues/1085
-		//
-		let menuPortalTarget = null;
-		if (!isServer && !props.menuPortalTarget) {
-			menuPortalTarget = document.getElementById('ptr-app');
-		} else if (
-			!isServer &&
-			props.menuPortalTarget &&
-			typeof props.menuPortalTarget === 'string'
-		) {
-			menuPortalTarget = document.getElementById(props.menuPortalTarget);
-		}
-
-		// prepare selected value
-		if (props.value && typeof props.value === 'string') {
-			props.value = _.find(props.options, {value: props.value});
-		} else if (props.value && props.optionValue && !_.isArray(props.value)) {
-			props.value = _.find(props.options, {
-				value: _.get(props.value, props.optionValue),
-			});
-		} else if (_.isArray(props.value)) {
-			props.value = _.filter(props.options, option => {
-				return !!_.find(props.value, value => {
-					if (typeof value === 'string') {
-						return value === option.value;
-					} else {
-						return _.get(value, props.optionValue) === option.value;
-					}
-				});
-			});
-		}
-
-		const classes = classnames(
-			`ptr-select-container ${
-				this.props.className ? this.props.className : ''
-			}`,
-			{
-				'value-is-title': !!this.props.valueIsTitle,
-				disabled: this.props.disabled,
-				clearable: this.props.clearable,
-				multi: this.props.multi,
-			}
-		);
-
-		switch (this.props.type) {
-			case 'creatable':
-				return this.renderCreatable(props, classes, menuPortalTarget);
-			default:
-				return this.renderBase(props, classes, menuPortalTarget);
-		}
+	//
+	// Secure ssr support for menuPortalTarget
+	// https://github.com/JedWatson/react-select/issues/1085
+	//
+	let menuPortalTargetSelf = null;
+	if (!isServer && !props.menuPortalTarget) {
+		menuPortalTargetSelf = document.getElementById('ptr-app');
+	} else if (
+		!isServer &&
+		props.menuPortalTarget &&
+		typeof props.menuPortalTarget === 'string'
+	) {
+		menuPortalTargetSelf = document.getElementById(props.menuPortalTarget);
 	}
 
-	renderBase(props, classes, menuPortalTarget) {
+	// prepare selected value
+	if (props.value && typeof props.value === 'string') {
+		props.value = _.find(props.options, {value: props.value});
+	} else if (props.value && props.optionValue && !_.isArray(props.value)) {
+		props.value = _.find(props.options, {
+			value: _.get(props.value, props.optionValue),
+		});
+	} else if (_.isArray(props.value)) {
+		props.value = _.filter(props.options, option => {
+			return !!_.find(props.value, value => {
+				if (typeof value === 'string') {
+					return value === option.value;
+				} else {
+					return _.get(value, props.optionValue) === option.value;
+				}
+			});
+		});
+	}
+
+	const classes = classnames(
+		`ptr-select-container ${className ? className : ''}`,
+		{
+			'value-is-title': !!valueIsTitle,
+			disabled: disabled,
+			clearable: clearable,
+			multi: multi,
+		}
+	);
+
+	const renderBase = (props, classes, menuPortalTarget) => {
 		return (
 			<SelectBase
 				className={classes}
 				classNamePrefix={'ptr-select'}
-				clearable={this.props.clearable}
+				clearable={clearable}
 				components={props.components}
-				formatOptionLabel={this.getLabel}
+				formatOptionLabel={getLabel}
 				hideSelectedOptions={props.hideSelectedOptions}
-				isClearable={this.props.clearable}
-				isDisabled={this.props.disabled}
+				isClearable={clearable}
+				isDisabled={disabled}
 				isOptionDisabled={option => option.isDisabled}
-				isMulti={this.props.multi}
-				onChange={this.onChange}
+				isMulti={multi}
+				onChange={onChangeSelf}
 				options={props.options}
 				tabIndex={props.unfocusable ? -1 : 0}
 				value={props.value}
@@ -204,6 +191,7 @@ class Select extends React.PureComponent {
 				placeholder={props.placeholder}
 				styles={{
 					menuPortal: base => {
+						// eslint-disable-next-line no-unused-vars
 						const {zIndex, ...rest} = base; // remove zIndex from base by destructuring
 						return {...rest, zIndex: 9999};
 					},
@@ -211,28 +199,29 @@ class Select extends React.PureComponent {
 				menuPortalTarget={menuPortalTarget}
 			/>
 		);
-	}
+	};
 
-	renderCreatable(props, classes, menuPortalTarget) {
+	const renderCreatable = (props, classes, menuPortalTarget) => {
 		return (
 			<SelectCreatable
 				className={classes}
 				classNamePrefix={'ptr-select'}
 				components={props.components}
-				formatOptionLabel={this.getLabel}
+				formatOptionLabel={getLabel}
 				hideSelectedOptions={props.hideSelectedOptions}
-				isClearable={this.props.clearable}
-				isDisabled={this.props.disabled}
+				isClearable={clearable}
+				isDisabled={disabled}
 				isOptionDisabled={option => option.isDisabled}
-				isMulti={this.props.multi}
-				onChange={this.onChange}
-				onCreateOption={this.onCreate}
+				isMulti={multi}
+				onChange={onChangeSelf}
+				onCreateOption={onCreateSelf}
 				options={props.options}
 				tabIndex={props.unfocusable ? -1 : 0}
 				value={props.value}
 				title={props.value}
 				styles={{
 					menuPortal: base => {
+						// eslint-disable-next-line no-unused-vars
 						const {zIndex, ...rest} = base; // remove zIndex from base by destructuring
 						return {...rest, zIndex: 9999};
 					},
@@ -240,30 +229,31 @@ class Select extends React.PureComponent {
 				menuPortalTarget={menuPortalTarget}
 			/>
 		);
-	}
+	};
 
-	getLabel(option) {
-		if (this.props.formatOptionLabel) {
-			if (this.props.optionValue) {
-				let selected = _.find(this.props.options, opt => {
-					return _.get(opt, this.props.optionValue) === option.value;
+	// OK
+	const getLabel = selectOption => {
+		if (formatOptionLabel) {
+			if (optionValue) {
+				let selected = _.find(options, opt => {
+					return _.get(opt, optionValue) === selectOption.value;
 				});
 				if (selected) {
-					return this.props.formatOptionLabel(selected);
+					return formatOptionLabel(selected);
 				} else {
 					throw new Error(
 						'Select#Selected option was not found in original options.'
 					);
 				}
 			} else {
-				return this.props.formatOptionLabel(option.label);
+				return formatOptionLabel(selectOption.label);
 			}
 		} else {
 			let labelPrefix = null;
-			let labelText = option.label;
+			const labelText = selectOption.label;
 
-			if (this.props.withKeyPrefix) {
-				labelPrefix = <Key value={option.value} />;
+			if (withKeyPrefix) {
+				labelPrefix = <Key value={selectOption.value} />;
 			}
 
 			return (
@@ -273,7 +263,39 @@ class Select extends React.PureComponent {
 				</div>
 			);
 		}
+	};
+
+	switch (type) {
+		case 'creatable':
+			return renderCreatable(props, classes, menuPortalTargetSelf);
+		default:
+			return renderBase(props, classes, menuPortalTargetSelf);
 	}
-}
+};
+
+Select.propTypes = {
+	className: PropTypes.string, // className for the outer element
+	clearable: PropTypes.bool,
+	components: PropTypes.object,
+	disabled: PropTypes.bool,
+	formatOptionLabel: PropTypes.func, // custom option rendering
+	multi: PropTypes.bool,
+	onChange: PropTypes.func, // onChange handler: function (newValue) {}
+	options: PropTypes.array,
+	optionLabel: PropTypes.string, // path to label
+	optionValue: PropTypes.string, // path to value
+	type: PropTypes.string,
+	unfocusable: PropTypes.bool,
+	value: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+	placeholder: PropTypes.string,
+	valueIsTitle: PropTypes.bool,
+	withKeyPrefix: PropTypes.bool,
+
+	// creatable
+	onCreate: PropTypes.func,
+
+	// id of the element where menu will be rendered
+	menuPortalTarget: PropTypes.string,
+};
 
 export default Select;

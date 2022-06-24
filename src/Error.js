@@ -1,13 +1,10 @@
-import React from 'react';
-
+import PropTypes from 'prop-types';
 import Center from './Center';
 
 /**
  * Error component for use for developer errors in components
  */
-export default props => {
-	let {children, centered} = props;
-
+const Error = ({children, centered}) => {
 	let message = (
 		<div style={{background: '#f00', padding: '0 .5rem'}}>{children}</div>
 	);
@@ -22,3 +19,10 @@ export default props => {
 
 	return message;
 };
+
+Error.propTypes = {
+	children: PropTypes.node,
+	centered: PropTypes.bool,
+};
+
+export default Error;

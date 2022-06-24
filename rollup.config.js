@@ -35,6 +35,8 @@ const lodashExternal = [
 export default {
 	input: 'src/index.js',
 	external: [
+		'react-select/creatable',
+		'react/jsx-runtime',
 		'react',
 		'prop-types',
 		'classnames',
@@ -52,7 +54,7 @@ export default {
 	],
 	output: {
 		file: {
-			es: pkg.module,
+			es: 'dist/index.es.js',
 			cjs: pkg.main,
 		}[env],
 		format: env,

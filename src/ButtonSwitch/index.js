@@ -1,97 +1,104 @@
-import React from 'react';
+import {Children, cloneElement} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Button, {ButtonGroup} from '../Button';
 
-class ButtonSwitch extends React.PureComponent {
-	static propTypes = {
-		disabled: PropTypes.bool,
-		ghost: PropTypes.bool,
-		inverted: PropTypes.bool,
-		invisible: PropTypes.bool,
-		large: PropTypes.bool,
-		onClick: PropTypes.func.isRequired,
-		small: PropTypes.bool,
-		title: PropTypes.string,
-		unfocusable: PropTypes.bool,
-	};
-
-	static defaultProps = {
-		disabled: false,
-	};
-
-	constructor(props) {
-		super(props);
-		this.state = {
-			focused: false,
-		};
-
-		this.onBlur = this.onBlur.bind(this);
-		this.onClick = this.onClick.bind(this);
-		this.onKeyPress = this.onKeyPress.bind(this);
-	}
-
-	onClick(value, e) {
-		if (!this.props.disabled) {
-			if (this.props.onClick) {
-				this.props.onClick(value, e);
+const ButtonSwitch = ({
+	disabled = false,
+	ghost,
+	inverted,
+	invisible,
+	large,
+	onClick,
+	small,
+	title,
+	unfocusable,
+	className,
+	children,
+}) => {
+	const onClickSelf = (value, e) => {
+		if (!disabled) {
+			if (onClick) {
+				onClick(value, e);
 			}
 		}
-	}
+	};
 
-	onBlur() {}
+	const onBlur = () => {};
 
-	onKeyPress(e) {
+	const onKeyPress = e => {
 		if (e.charCode === 32) {
-			this.onClick(e);
+			onClickSelf(e);
 		} else if (e.charCode === 13) {
-			this.onClick(e);
+			onClickSelf(e);
 		}
-	}
+	};
 
-	render() {
-		let {onClick, ...switchProps} = this.props;
-		let {className, ...restSwitchProps} = switchProps;
+	const restSwitchProps = {
+		disabled,
+		ghost,
+		inverted,
+		invisible,
+		large,
+		onClick,
+		small,
+		title,
+		unfocusable,
+		className,
+	};
 
-		let content = React.Children.map(this.props.children, child => {
-			let {active, value, ...props} = child.props;
-			props = {
-				...restSwitchProps, //todo should be done by ButtonGroup ?
-				...props,
-				active: active, //or state
-				onClick: this.onClick.bind(this, value),
-			};
-			return React.cloneElement(child, props, child.props.children);
-		});
+	const content = Children.map(children, child => {
+		let {active, value, ...props} = child.props;
+		props = {
+			...restSwitchProps, //todo should be done by ButtonGroup ?
+			...props,
+			active: active, //or state
+			onClick: evt => onClickSelf(evt, value),
+		};
+		return cloneElement(child, props, children);
+	});
 
-		let classes = classNames(
-			'ptr-button-switch',
-			{
-				disabled: this.props.disabled,
-				ghost: !!this.props.ghost,
-				invisible: !!this.props.invisible,
-				inverted: !!this.props.inverted,
-				large: !!this.props.large,
-				small: this.props.small,
-			},
-			this.props.className
-		);
+	let classes = classNames(
+		'ptr-button-switch',
+		{
+			disabled: disabled,
+			ghost: !!ghost,
+			invisible: !!invisible,
+			inverted: !!inverted,
+			large: !!large,
+			small: small,
+		},
+		className
+	);
 
-		return (
-			<ButtonGroup
-				className={classes}
-				onBlur={this.onBlur}
-				onClick={this.onClick}
-				onKeyPress={this.onKeyPress}
-				tabIndex={this.props.disabled || this.props.unfocusable ? '-1' : '0'}
-				title={this.props.title}
-			>
-				{content}
-			</ButtonGroup>
-		);
-	}
-}
+	return (
+		<ButtonGroup
+			className={classes}
+			onBlur={onBlur}
+			onClick={onClickSelf}
+			onKeyPress={onKeyPress}
+			tabIndex={disabled || unfocusable ? '-1' : '0'}
+			title={title}
+		>
+			{content}
+		</ButtonGroup>
+	);
+};
+
+ButtonSwitch.propTypes = {
+	disabled: PropTypes.bool,
+	ghost: PropTypes.bool,
+	inverted: PropTypes.bool,
+	invisible: PropTypes.bool,
+	large: PropTypes.bool,
+	onClick: PropTypes.func.isRequired,
+	small: PropTypes.bool,
+	title: PropTypes.string,
+	unfocusable: PropTypes.bool,
+	className: PropTypes.string,
+	children: PropTypes.node,
+};
 
 export default ButtonSwitch;
 
@@ -111,4 +118,11 @@ export const ButtonSwitchOption = ({
 			{children}
 		</Button>
 	);
+};
+
+ButtonSwitchOption.propTypes = {
+	active: PropTypes.bool,
+	children: PropTypes.node,
+	className: PropTypes.string,
+	onClick: PropTypes.func,
 };

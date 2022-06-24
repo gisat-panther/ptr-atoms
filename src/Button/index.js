@@ -1,4 +1,11 @@
-import React from 'react';
+import {
+	Fragment,
+	Children,
+	cloneElement,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -7,239 +14,241 @@ import Menu from '../Menu';
 
 import './style.scss';
 
-class Button extends React.PureComponent {
-	static propTypes = {
-		circular: PropTypes.bool,
-		className: PropTypes.string,
-		disabled: PropTypes.bool,
-		ghost: PropTypes.bool,
-		icon: PropTypes.string,
-		inverted: PropTypes.bool,
-		invisible: PropTypes.bool,
-		large: PropTypes.bool,
-		onClick: PropTypes.func.isRequired,
-		onHold: PropTypes.func,
-		primary: PropTypes.bool,
-		secondary: PropTypes.bool,
-		side: PropTypes.string,
-		small: PropTypes.bool,
-		title: PropTypes.string,
-		unfocusable: PropTypes.bool,
+const Button = ({
+	children,
+	circular,
+	className,
+	disabled = false,
+	ghost,
+	icon,
+	inverted,
+	invisible,
+	large,
+	onClick,
+	onHold,
+	primary,
+	secondary,
+	side,
+	small,
+	title,
+	unfocusable,
+	holdStart = 300,
+	holdStep = 50,
+	id,
+}) => {
+	const node = useRef();
+	const [menuOpen, setMenuOpen] = useState(false);
+	const [held, setHeld] = useState(false);
+
+	const holdTimeout = useRef();
+	const onHoldCallInterval = useRef();
+
+	const clearHoldTimeout = () => {
+		clearTimeout(holdTimeout.current);
+		clearInterval(onHoldCallInterval.current);
 	};
 
-	static defaultProps = {
-		disabled: false,
-		holdStart: 300,
-		holdStep: 50,
+	const holdStartSelf = () => {
+		onHold();
+		onHoldCallInterval.current = setInterval(onHold, holdStep);
+		setHeld(true);
 	};
 
-	constructor(props) {
-		super(props);
-		this.node = React.createRef();
+	const onMouseDown = () => {
+		if (onHold && !disabled) {
+			clearHoldTimeout();
+			holdTimeout.current = setTimeout(holdStartSelf, holdStart);
+		}
+	};
 
-		this.state = {
-			focused: false,
-			menuOpen: false,
-			held: false,
+	const onMouseOut = () => {
+		if (onHold) {
+			clearHoldTimeout();
+			if (held) {
+				setHeld(false);
+			}
+		}
+	};
+
+	const onTouchStart = evt => {
+		evt.stopPropagation();
+		onMouseDown(evt);
+	};
+
+	const onTouchEnd = evt => {
+		evt.stopPropagation();
+		onMouseOut(evt);
+	};
+
+	const addTouchListeners = () => {
+		node.current.addEventListener('touchstart', onTouchStart);
+		node.current.addEventListener('touchend', onTouchEnd);
+	};
+
+	const removeTouchListeners = () => {
+		node.current?.removeEventListener('touchstart', onTouchStart);
+		node.current?.removeEventListener('touchend', onTouchEnd);
+	};
+
+	useEffect(() => {
+		if (typeof onHold === 'function') {
+			addTouchListeners();
+		}
+		return () => {
+			if (typeof onHold === 'function') {
+				removeTouchListeners();
+			}
 		};
+	}, []);
 
-		this.onBlur = this.onBlur.bind(this);
-		this.onClick = this.onClick.bind(this);
-		this.onKeyPress = this.onKeyPress.bind(this);
-
-		this.onMouseOut = this.onMouseOut.bind(this);
-		this.onMouseDown = this.onMouseDown.bind(this);
-		this.onTouchStart = this.onTouchStart.bind(this);
-		this.onTouchEnd = this.onTouchEnd.bind(this);
-	}
-
-	componentDidMount() {
-		if (this.props.onHold) {
-			this.addTouchListeners();
+	const onHoldRef = useRef();
+	useEffect(() => {
+		if (onHoldRef.current && !onHold) {
+			removeTouchListeners();
+		} else if (!onHoldRef.current && onHold) {
+			addTouchListeners();
 		}
-	}
+	}, [onHold]);
 
-	componentWillUnmount() {
-		if (this.props.onHold) {
-			this.removeTouchListeners();
+	useEffect(() => {
+		if (disabled && held) {
+			clearHoldTimeout();
 		}
-	}
+	}, [disabled]);
 
-	componentDidUpdate(prevProps, prevState, snapshot) {
-		if (!prevProps.onHold && this.props.onHold) {
-			this.addTouchListeners();
-		} else if (prevProps.onHold && !this.props.onHold) {
-			this.removeTouchListeners();
-		}
-
-		if (this.props.disabled && this.state.held) {
-			this.clearHoldTimeout();
-		}
-	}
-
-	addTouchListeners() {
-		this.node.current.addEventListener('touchstart', this.onTouchStart);
-		this.node.current.addEventListener('touchend', this.onTouchEnd);
-	}
-
-	removeTouchListeners() {
-		this.node.current.removeEventListener('touchstart', this.onTouchStart);
-		this.node.current.removeEventListener('touchend', this.onTouchEnd);
-	}
-
-	onTouchStart(evt) {
-		evt.stopPropagation();
-		this.onMouseDown(evt);
-	}
-
-	onTouchEnd(evt) {
-		evt.stopPropagation();
-		this.onMouseOut(evt);
-	}
-
-	onMouseDown() {
-		if (this.props.onHold && !this.props.disabled) {
-			this.clearHoldTimeout();
-			this.holdTimeout = setTimeout(
-				this.holdStart.bind(this),
-				this.props.holdStart
-			);
-		}
-	}
-
-	onMouseOut() {
-		if (this.props.onHold) {
-			this.clearHoldTimeout();
-			if (this.state.held) {
-				this.setState({
-					held: false,
-				});
+	const onClickSelf = e => {
+		if (!disabled) {
+			if (onClick) {
+				onClick(e);
 			}
+			setMenuOpen(!menuOpen);
 		}
-	}
+	};
 
-	clearHoldTimeout() {
-		clearTimeout(this.holdTimeout);
-		clearInterval(this.onHoldCallInterval);
-	}
+	const onBlur = () => {
+		setMenuOpen(false);
+	};
 
-	holdStart() {
-		this.props.onHold();
-		this.onHoldCallInterval = setInterval(
-			this.props.onHold,
-			this.props.holdStep
-		);
-
-		this.setState({
-			held: true,
-		});
-	}
-
-	onClick(e) {
-		if (!this.props.disabled) {
-			if (this.props.onClick) {
-				this.props.onClick(e);
-			}
-			this.setState({
-				menuOpen: !this.state.menuOpen,
-			});
-		}
-	}
-
-	onBlur() {
-		this.setState({
-			menuOpen: false,
-		});
-	}
-
-	onKeyPress(e) {
+	const onKeyPress = e => {
 		if (e.charCode === 32) {
-			this.onClick(e);
+			onClickSelf(e);
 		} else if (e.charCode === 13) {
-			this.onClick(e);
+			onClickSelf(e);
 		}
+	};
+
+	let iconInsert = null;
+	if (icon) {
+		// determine icon
+		iconInsert = <Icon icon={icon} />;
 	}
 
-	render() {
-		let iconInsert = null;
-		if (this.props.icon) {
-			// determine icon
-			iconInsert = <Icon icon={this.props.icon} />;
-		}
-
-		let hasContent = false;
-		let content = React.Children.map(this.props.children, child => {
-			if (child) {
-				if (typeof child === 'string' || typeof child === 'number') {
-					hasContent = true;
-					return <div className="ptr-button-caption">{child}</div>;
-				} else if (typeof child === 'object' && child.type === React.Fragment) {
-					hasContent = true;
-					return <div className="ptr-button-content">{child}</div>;
-				} else if (typeof child === 'object' && child.type === Menu) {
-					let props = {
-						...child.props,
-						open: !!this.state.menuOpen,
-						className: classNames(child.props.className, 'ptr-button-menu'),
-					};
-					return React.cloneElement(child, props, child.props.children);
-				} else {
-					hasContent = true;
-					return child;
-				}
+	let hasContent = false;
+	let content = Children.map(children, child => {
+		if (child) {
+			if (typeof child === 'string' || typeof child === 'number') {
+				hasContent = true;
+				return <div className="ptr-button-caption">{child}</div>;
+			} else if (typeof child === 'object' && child.type === Fragment) {
+				hasContent = true;
+				return <div className="ptr-button-content">{child}</div>;
+			} else if (typeof child === 'object' && child.type === Menu) {
+				let props = {
+					...child.props,
+					open: !!menuOpen,
+					className: classNames(child.props.className, 'ptr-button-menu'),
+				};
+				return cloneElement(child, props, child.props.children);
+			} else {
+				hasContent = true;
+				return child;
 			}
-		});
+		}
+	});
 
-		let classes = classNames(
-			'ptr-button',
-			{
-				circular: !!this.props.circular,
-				disabled: this.props.disabled,
-				ghost: !!this.props.ghost,
-				icon: !!iconInsert && !hasContent,
-				invisible: !!this.props.invisible,
-				inverted: !!this.props.inverted,
-				large: !!this.props.large,
-				primary: !!this.props.primary,
-				secondary: !!this.props.secondary,
-				side: !!this.props.side,
-				'side-left': this.props.side === 'left',
-				'side-right': this.props.side === 'right',
-				'side-top': this.props.side === 'top',
-				'side-bottom': this.props.side === 'bottom',
-				small: this.props.small,
-			},
-			this.props.className
-		);
+	let classes = classNames(
+		'ptr-button',
+		{
+			circular: !!circular,
+			disabled: disabled,
+			ghost: !!ghost,
+			icon: !!iconInsert && !hasContent,
+			invisible: !!invisible,
+			inverted: !!inverted,
+			large: !!large,
+			primary: !!primary,
+			secondary: !!secondary,
+			side: !!side,
+			'side-left': side === 'left',
+			'side-right': side === 'right',
+			'side-top': side === 'top',
+			'side-bottom': side === 'bottom',
+			small: small,
+		},
+		className
+	);
 
-		return (
-			<div
-				className={classes}
-				id={this.props.id}
-				onBlur={this.onBlur}
-				onClick={this.onClick}
-				onKeyPress={this.onKeyPress}
-				tabIndex={this.props.disabled || this.props.unfocusable ? '-1' : '0'}
-				title={this.props.title}
-				ref={this.node}
-				onMouseLeave={this.onMouseOut}
-				onMouseDown={this.onMouseDown}
-				onMouseUp={this.onMouseOut}
-			>
-				{iconInsert}
-				{content}
-			</div>
-		);
-	}
-}
+	return (
+		<div
+			className={classes}
+			id={id}
+			onBlur={onBlur}
+			onClick={onClickSelf}
+			onKeyPress={onKeyPress}
+			tabIndex={disabled || unfocusable ? '-1' : '0'}
+			title={title}
+			ref={node}
+			onMouseLeave={onMouseOut}
+			onMouseDown={onMouseDown}
+			onMouseUp={onMouseOut}
+		>
+			{iconInsert}
+			{content}
+		</div>
+	);
+};
+
+Button.propTypes = {
+	circular: PropTypes.bool,
+	className: PropTypes.string,
+	disabled: PropTypes.bool,
+	ghost: PropTypes.bool,
+	icon: PropTypes.string,
+	inverted: PropTypes.bool,
+	invisible: PropTypes.bool,
+	large: PropTypes.bool,
+	onClick: PropTypes.func.isRequired,
+	onHold: PropTypes.func,
+	primary: PropTypes.bool,
+	secondary: PropTypes.bool,
+	side: PropTypes.string,
+	small: PropTypes.bool,
+	title: PropTypes.string,
+	unfocusable: PropTypes.bool,
+	holdStart: PropTypes.number,
+	holdStep: PropTypes.number,
+	children: PropTypes.node,
+	id: PropTypes.string,
+};
 
 export default Button;
 
 export const Buttons = ({vertical, children}) => (
 	<div className={classNames('ptr-buttons', {vertical})}>{children}</div>
 );
+
+Buttons.propTypes = {
+	children: PropTypes.node,
+	vertical: PropTypes.bool,
+};
 export const ButtonGroup = ({vertical, className, children}) => (
 	<div className={classNames('ptr-button-group', className, {vertical})}>
 		{children}
 	</div>
 );
+
+ButtonGroup.propTypes = {
+	children: PropTypes.node,
+	vertical: PropTypes.bool,
+	className: PropTypes.string,
+};

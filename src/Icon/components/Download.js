@@ -1,6 +1,4 @@
-import React from 'react';
-
-export default props => (
+export default () => (
 	<g>
 		<path className="line" d="M5 27 l22 0" strokeWidth="2" stroke="black" />
 		<path className="line" d="M16 5 l0 18" strokeWidth="2" stroke="black" />

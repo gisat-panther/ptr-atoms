@@ -1,68 +1,61 @@
-import React from 'react';
+import {useContext} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import PantherSelectContext from './context';
 
-class PantherSelectItem extends React.PureComponent {
-	static propTypes = {
-		disabled: PropTypes.bool,
-		selected: PropTypes.bool,
-		onSelect: PropTypes.func,
-	};
+const PantherSelectItem = ({
+	disabled = false,
+	selected,
+	children,
+	style,
+	className,
+	itemKey,
+}) => {
+	const context = useContext(PantherSelectContext);
 
-	static defaultProps = {
-		disabled: false,
-	};
-
-	static contextType = PantherSelectContext;
-
-	constructor(props) {
-		super(props);
-
-		this.onBlur = this.onBlur.bind(this);
-		this.onClick = this.onClick.bind(this);
-		this.onKeyPress = this.onKeyPress.bind(this);
-	}
-
-	onClick(e) {
-		if (!this.props.disabled) {
-			if (this.context.onSelect) {
-				this.context.onSelect(this.props.itemKey);
+	const onClick = () => {
+		if (!disabled) {
+			if (context.onSelect) {
+				context.onSelect(itemKey);
 			}
 		}
-	}
+	};
 
-	onBlur() {}
+	// const onBlur = () => {};
 
-	onKeyPress(e) {
-		if (e.charCode === 32) {
-			this.onClick(e);
-		} else if (e.charCode === 13) {
-			this.onClick(e);
-		}
-	}
+	// const onKeyPress = e => {
+	// 	if (e.charCode === 32) {
+	// 		onClick(e);
+	// 	} else if (e.charCode === 13) {
+	// 		onClick(e);
+	// 	}
+	// };
 
-	render() {
-		let classes = classNames(
-			'ptr-panther-select-item',
-			{
-				selected: !!this.props.selected,
-				disabled: this.props.disabled,
-			},
-			this.props.className
-		);
+	let classes = classNames(
+		'ptr-panther-select-item',
+		{
+			selected: !!selected,
+			disabled: disabled,
+		},
+		className
+	);
 
-		return (
-			<div
-				className={classes}
-				style={this.props.style}
-				onMouseDown={this.onClick}
-			>
-				{this.props.children}
-			</div>
-		);
-	}
-}
+	return (
+		<div className={classes} style={style} onMouseDown={onClick}>
+			{children}
+		</div>
+	);
+};
+
+PantherSelectItem.propTypes = {
+	disabled: PropTypes.bool,
+	selected: PropTypes.bool,
+	onSelect: PropTypes.func,
+	style: PropTypes.object,
+	children: PropTypes.node,
+	className: PropTypes.string,
+	itemKey: PropTypes.string,
+};
 
 export default PantherSelectItem;

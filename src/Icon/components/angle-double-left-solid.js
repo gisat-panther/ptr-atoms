@@ -1,6 +1,4 @@
-import React from 'react';
-
-export default props => ({
+export default () => ({
 	viewBox: '0 0 448 512',
 	element: (
 		<path

@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Value from './Value';
@@ -7,66 +6,85 @@ import Icon from '../Icon';
 import './select.scss';
 import Select from './index';
 
-class MultiSelect extends React.PureComponent {
-	static propTypes = {
-		creatable: PropTypes.bool,
-		disabled: PropTypes.bool,
-		optionLabel: PropTypes.string, // path to label
-		optionValue: PropTypes.string, // path to value (key)
-		onAdd: PropTypes.func,
-		onChange: PropTypes.func,
-		onOptionLabelClick: PropTypes.func,
-		options: PropTypes.array,
-		selectedValues: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
-		singleValue: PropTypes.bool,
-		unfocusable: PropTypes.bool,
-		withKeyPrefix: PropTypes.bool,
-
-		// ordered: PropTypes.bool // ordered values
+const MultiSelect = ({
+	creatable,
+	disabled,
+	optionLabel,
+	optionValue,
+	onAdd,
+	onChange,
+	onOptionLabelClick,
+	options,
+	selectedValues,
+	singleValue,
+	unfocusable,
+	withKeyPrefix,
+	// ordered: PropTypes.bool // ordered values
+}) => {
+	/**
+	 * Get value(key) from option
+	 * @param option {string | Object}
+	 * @return {string}
+	 */
+	const getOptionValue = option => {
+		if (optionValue && _.isObject(option)) {
+			return _.get(option, optionValue);
+		} else {
+			return option;
+		}
 	};
 
-	constructor(props) {
-		super(props);
-
-		this.onChange = this.onChange.bind(this);
-		this.onOptionLabelClick = this.onOptionLabelClick.bind(this);
-
-		// this.moveValue = this.moveValue.bind(this);
-	}
+	/**
+	 * Get label from option
+	 * @param option {string | Object}
+	 * @return {string}
+	 */
+	const getOptionLabel = option => {
+		if (optionLabel) {
+			return _.get(option, optionLabel);
+		} else {
+			return option;
+		}
+	};
 
 	/**
 	 * Get collection of prepared options {label: 'string', value: 'string'}
 	 * @param options {Array} Array of keys or collection of options
 	 * @return {Array}
 	 */
-	getFormattedOptions(options) {
-		if (!_.isArray(options)) options = [options];
+	const getFormattedOptions = options => {
+		let optionsToFormat = [...options];
+		if (!_.isArray(options)) {
+			optionsToFormat = [options];
+		}
 
-		return options.map(option => {
+		return optionsToFormat.map(option => {
 			if (option) {
 				return {
-					value: this.getOptionValue(option),
-					label: this.getOptionLabel(option),
+					value: getOptionValue(option),
+					label: getOptionLabel(option),
 				};
 			} else {
 				return [];
 			}
 		});
-	}
+	};
 
 	/**
 	 * @return {Array} Collection of selected options
 	 */
-	getSelectedOptions() {
-		let selectedValues = this.props.selectedValues;
+	const getSelectedOptions = () => {
+		let selectedValuesSelf = selectedValues;
 
-		if (selectedValues && this.props.options) {
-			if (!_.isArray(selectedValues)) selectedValues = [selectedValues];
-			if (this.props.optionValue) {
-				return _.filter(this.props.options, option => {
-					let optionKey = this.getOptionValue(option);
-					return !!_.find(selectedValues, selected => {
-						return optionKey === this.getOptionValue(selected);
+		if (selectedValuesSelf && options) {
+			if (!_.isArray(selectedValuesSelf)) {
+				selectedValuesSelf = [selectedValuesSelf];
+			}
+			if (optionValue) {
+				return _.filter(options, option => {
+					let optionKey = getOptionValue(option);
+					return !!_.find(selectedValuesSelf, selected => {
+						return optionKey === getOptionValue(selected);
 					});
 				});
 			} else {
@@ -75,76 +93,50 @@ class MultiSelect extends React.PureComponent {
 		} else {
 			return [];
 		}
-	}
-
-	/**
-	 * Get value(key) from option
-	 * @param option {string | Object}
-	 * @return {string}
-	 */
-	getOptionValue(option) {
-		if (this.props.optionValue && _.isObject(option)) {
-			return _.get(option, this.props.optionValue);
-		} else {
-			return option;
-		}
-	}
-
-	/**
-	 * Get label from option
-	 * @param option {string | Object}
-	 * @return {string}
-	 */
-	getOptionLabel(option) {
-		if (this.props.optionLabel) {
-			return _.get(option, this.props.optionLabel);
-		} else {
-			return option;
-		}
-	}
+	};
 
 	/**
 	 * @param selectedOption {Object}
 	 */
-	onChange(selectedOption) {
-		let selectedOptions = this.getSelectedOptions();
-		this.props.onChange([...selectedOptions, selectedOption]);
-	}
+	const onChangeSelf = selectedOption => {
+		let selectedOptions = getSelectedOptions();
+		onChange([...selectedOptions, selectedOption]);
+	};
 
 	/**
 	 * @param option {{value: {string}, label: {string}}}
 	 * @param event {Object}
 	 */
-	onOptionLabelClick(option, event) {
-		if (this.props.onOptionLabelClick) {
+	const onOptionLabelClickSelf = (option, event) => {
+		if (onOptionLabelClick) {
 			event.stopPropagation();
 			event.preventDefault();
 
-			let selectedOption = _.find(this.props.options, opt => {
-				let key = this.getOptionValue(opt);
+			let selectedOption = _.find(options, opt => {
+				let key = getOptionValue(opt);
 				return key === option.value;
 			});
 
-			this.props.onOptionLabelClick(selectedOption);
+			onOptionLabelClick(selectedOption);
 		}
-	}
+	};
 
 	/**
 	 * @param option {{value: {string}, label: {string}}}
 	 * @param event {Object}
 	 */
-	onRemoveOptionClick(option, event) {
+	const onRemoveOptionClick = (option, event) => {
 		event.stopPropagation();
 		event.preventDefault();
 
-		let selected = this.getSelectedOptions();
+		let selected = getSelectedOptions();
 		let selectedOptions = _.filter(selected, opt => {
-			let key = this.getOptionValue(opt);
+			let key = getOptionValue(opt);
 			return key !== option.value;
 		});
 
-		this.props.onChange(selectedOptions);
-	}
+		onChange(selectedOptions);
+	};
 
 	// moveValue(item, direction) {
 	// 	const values = this.state.selectedValues.slice(0);
@@ -163,21 +155,21 @@ class MultiSelect extends React.PureComponent {
 	// 			}
 	// 			break;
 	//     }
-	//     this.setState({selectedValues: values}, this.onChange);
+	//     this.setState({selectedValues: values}, onChangeSelf);
 	// }
 
-	blockEvent(event) {
+	const blockEvent = event => {
 		event.stopPropagation();
-	}
+	};
 
-	getRemoveIcon(item) {
+	const getRemoveIcon = item => {
 		return (
 			<span
 				className=" ptr-icon-inline-wrap"
 				key="remove"
-				onMouseDown={this.blockEvent}
-				onClick={this.onRemoveOptionClick.bind(this, item)}
-				onTouchEnd={this.onRemoveOptionClick.bind(this, item)}
+				onMouseDown={blockEvent}
+				onClick={e => onRemoveOptionClick(item, e)}
+				onTouchEnd={e => onRemoveOptionClick(item, e)}
 			>
 				<Icon
 					icon={'times'}
@@ -187,7 +179,7 @@ class MultiSelect extends React.PureComponent {
 				/>
 			</span>
 		);
-	}
+	};
 
 	// getOrderControl (item, moveUp, moveDown) {
 	//     return (
@@ -215,15 +207,15 @@ class MultiSelect extends React.PureComponent {
 	//     );
 	// }
 
-	getSelectedItem(selected, item) {
-		const itemIndex = selected.findIndex(i => i === item.value);
-		const moveUp = itemIndex !== 0;
-		const moveDown = itemIndex !== selected.length - 1;
+	const getSelectedItem = item => {
+		// const itemIndex = selected.findIndex(i => i === item.value);
+		// const moveUp = itemIndex !== 0;
+		// const moveDown = itemIndex !== selected.length - 1;
 		// const orderedControls = this.props.ordered ? this.getOrderControl(item, moveUp, moveDown) : null;
 
 		const startItems = [];
-		if (!this.props.disabled) {
-			startItems.push(this.getRemoveIcon(item));
+		if (!disabled) {
+			startItems.push(getRemoveIcon(item));
 		}
 
 		const endItems = [
@@ -241,103 +233,115 @@ class MultiSelect extends React.PureComponent {
 			<Value
 				key={item.value}
 				option={item}
-				onOptionLabelClick={this.onOptionLabelClick}
-				unfocusable={this.props.unfocusable}
-				withKeyPrefix={this.props.withKeyPrefix}
+				onOptionLabelClick={onOptionLabelClickSelf}
+				unfocusable={unfocusable}
+				withKeyPrefix={withKeyPrefix}
 				//FIXME - loading
 				endItems={endItems}
 				startItems={startItems}
 			/>
 		);
-	}
+	};
 
-	getSelectedItems(options, selected) {
+	const getSelectedItems = (options, selected) => {
 		if (selected && selected.length > 0) {
 			return selected
 				.reduce((accumulator, selectedValue) => {
 					const item = options.find(item => item.value === selectedValue.value);
 					return item ? [...accumulator, item] : accumulator;
 				}, [])
-				.map(this.getSelectedItem.bind(this, selected));
+				.map(i => getSelectedItem(i));
 		} else {
 			return null;
 		}
-	}
+	};
 
-	getRestOptions(options, selectedOptions) {
+	const getRestOptions = (options, selectedOptions) => {
 		return _.reject(options, item => {
-			let key = this.getOptionValue(item);
+			let key = getOptionValue(item);
 
 			return _.includes(
 				selectedOptions.map(selectedOption => {
-					return this.getOptionValue(selectedOption);
+					return getOptionValue(selectedOption);
 				}),
 				key
 			);
 		});
-	}
+	};
 
-	render() {
-		let options = this.props.options ? this.props.options : [];
-
-		let selectedOptions = [];
-		if (this.props.selectedValues) {
-			if (!_.isArray(this.props.selectedValues)) {
-				selectedOptions = [this.props.selectedValues];
-			} else {
-				selectedOptions = this.props.selectedValues;
-			}
-		}
-
-		let formattedOptions = this.getFormattedOptions(options);
-		let formattedSelected = this.getFormattedOptions(selectedOptions);
-
-		let selectedItems = this.getSelectedItems(
-			formattedOptions,
-			formattedSelected
-		);
-		let restOptions = this.getRestOptions(options, selectedOptions);
-
-		let selectComponent = null;
-		if (!(this.props.singleValue && selectedOptions.length === 1)) {
-			selectComponent = this.renderSelect(restOptions);
-		}
-
-		return (
-			<div>
-				{selectedItems ? <div className="items">{selectedItems}</div> : null}
-				{selectComponent}
-			</div>
-		);
-	}
-
-	renderSelect(options) {
-		return this.props.creatable ? (
+	const renderSelect = options => {
+		return creatable ? (
 			<Select
 				type="creatable"
-				disabled={this.props.disabled}
-				onChange={this.onChange}
-				onCreate={this.props.onAdd}
+				disabled={disabled}
+				onChange={onChangeSelf}
+				onCreate={onAdd}
 				options={options}
-				optionLabel={this.props.optionLabel}
-				optionValue={this.props.optionValue}
-				unfocusable={this.props.unfocusable}
+				optionLabel={optionLabel}
+				optionValue={optionValue}
+				unfocusable={unfocusable}
 				value={null}
-				withKeyPrefix={this.props.withKeyPrefix}
+				withKeyPrefix={withKeyPrefix}
 			/>
 		) : (
 			<Select
-				disabled={this.props.disabled}
-				onChange={this.onChange}
+				disabled={disabled}
+				onChange={onChangeSelf}
 				options={options}
-				optionLabel={this.props.optionLabel}
-				optionValue={this.props.optionValue}
-				unfocusable={this.props.unfocusable}
+				optionLabel={optionLabel}
+				optionValue={optionValue}
+				unfocusable={unfocusable}
 				value={null}
-				withKeyPrefix={this.props.withKeyPrefix}
+				withKeyPrefix={withKeyPrefix}
 			/>
 		);
+	};
+
+	let optionsSelf = options || [];
+	let selectedOptions = [];
+
+	if (selectedValues) {
+		if (!_.isArray(selectedValues)) {
+			selectedOptions = [selectedValues];
+		} else {
+			selectedOptions = selectedValues;
+		}
 	}
-}
+
+	let formattedOptions = getFormattedOptions(optionsSelf);
+	let formattedSelected = getFormattedOptions(selectedOptions);
+
+	let selectedItems = getSelectedItems(formattedOptions, formattedSelected);
+	let restOptions = getRestOptions(optionsSelf, selectedOptions);
+
+	let selectComponent = null;
+	if (!(singleValue && selectedOptions.length === 1)) {
+		selectComponent = renderSelect(restOptions);
+	}
+
+	return (
+		<div>
+			{selectedItems ? <div className="items">{selectedItems}</div> : null}
+			{selectComponent}
+		</div>
+	);
+};
+
+MultiSelect.propTypes = {
+	creatable: PropTypes.bool,
+	disabled: PropTypes.bool,
+	optionLabel: PropTypes.string, // path to label
+	optionValue: PropTypes.string, // path to value (key)
+	onAdd: PropTypes.func,
+	onChange: PropTypes.func,
+	onOptionLabelClick: PropTypes.func,
+	options: PropTypes.array,
+	selectedValues: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+	singleValue: PropTypes.bool,
+	unfocusable: PropTypes.bool,
+	withKeyPrefix: PropTypes.bool,
+
+	// ordered: PropTypes.bool // ordered values
+};
 
 export default MultiSelect;

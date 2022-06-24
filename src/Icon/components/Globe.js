@@ -1,6 +1,4 @@
-import React from 'react';
-
-export default props => (
+export default () => (
 	<g>
 		<path className={'line'} d="m15.923 1a15 15 0 1 0 0.15385 0z" />
 		<path

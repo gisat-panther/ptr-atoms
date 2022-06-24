@@ -1,15 +1,23 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import './style.scss';
 
-export default props => (
+const Center = ({horizontally, vertically, children}) => (
 	<div
 		className={classNames('ptr-center', {
-			horizontally: props.horizontally,
-			vertically: props.vertically,
+			horizontally: horizontally,
+			vertically: vertically,
 		})}
 	>
-		{props.children}
+		{children}
 	</div>
 );
+
+Center.propTypes = {
+	children: PropTypes.node,
+	horizontally: PropTypes.bool,
+	vertically: PropTypes.bool,
+};
+
+export default Center;

@@ -1,6 +1,6 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
+import {createElement, Fragment} from 'react';
 import './style.scss';
 
 const renderColumn = (column, index) => {
@@ -21,7 +21,7 @@ const renderColumn = (column, index) => {
 
 	let content = null;
 	if (column.component) {
-		content = React.createElement(column.component, column.props);
+		content = createElement(column.component, column.props);
 	} else if (column.render) {
 		content = column.render();
 	}
@@ -38,21 +38,24 @@ const renderColumn = (column, index) => {
 	let className = classNames('ptr-adjustable-column', column.className);
 
 	return (
-		<React.Fragment key={index}>
+		<Fragment key={index}>
 			{handle}
 			<div className={className} style={style}>
 				<div className="ptr-adjustable-columns-content">{content}</div>
 			</div>
-		</React.Fragment>
+		</Fragment>
 	);
 };
 
-export default props => (
-	<div className={classNames('ptr-adjustable-columns', {fixed: props.fixed})}>
-		{(props &&
-			props.content &&
-			props.content.length &&
-			props.content.map(renderColumn)) ||
-			null}
+const AdjustableColumn = ({fixed, content}) => (
+	<div className={classNames('ptr-adjustable-columns', {fixed})}>
+		{(content && content.length && content.map(renderColumn)) || null}
 	</div>
 );
+
+AdjustableColumn.propTypes = {
+	content: PropTypes.array,
+	fixed: PropTypes.bool,
+};
+
+export default AdjustableColumn;

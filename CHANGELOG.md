@@ -1,3 +1,15 @@
+# v1.6.0 (Fri Jun 24 2022)
+
+#### 🚀 Enhancement
+
+- :sparkles: [#36](https://github.com/gisat-panther/ptr-atoms/pull/36) ([@vdubr](https://github.com/vdubr))
+
+#### Authors: 1
+
+- Vojtěch Dubrovský ([@vdubr](https://github.com/vdubr))
+
+---
+
 # v1.5.0 (Tue Mar 01 2022)
 
 #### 🚀 Enhancement

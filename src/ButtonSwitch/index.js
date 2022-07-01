@@ -17,7 +17,7 @@ const ButtonSwitch = ({
 	className,
 	children,
 }) => {
-	const onClickSelf = (value, e) => {
+	const onClickSelf = (e, value) => {
 		if (!disabled) {
 			if (onClick) {
 				onClick(value, e);
@@ -56,7 +56,7 @@ const ButtonSwitch = ({
 			active: active, //or state
 			onClick: evt => onClickSelf(evt, value),
 		};
-		return cloneElement(child, props, children);
+		return cloneElement(child, props, child.props.children);
 	});
 
 	let classes = classNames(

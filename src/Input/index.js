@@ -1,11 +1,12 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import './Input.scss';
 import EditableText from '../EditableText';
 
-const Index = ({
+const Input = ({
+	className,
 	children,
 	disabled,
 	multiline,
@@ -23,14 +24,8 @@ const Index = ({
 	const [stateValue, setStateValue] = useState(value);
 	const [stateFocus, setStateFocus] = useState();
 
-	useEffect(() => {
-		if (value !== stateValue) {
-			setStateValue(value);
-		}
-	}, [value]);
-
 	const onChangeSelf = e => {
-		if ((value || value === '') && onChange) {
+		if ((stateValue || stateValue === '') && onChange) {
 			// controlled
 			onChange(e.target.value);
 		} else {
@@ -40,7 +35,7 @@ const Index = ({
 	};
 
 	const onChangeMultiline = newValue => {
-		if ((value || value === '') && onChange) {
+		if ((stateValue || stateValue === '') && onChange) {
 			// controlled
 			if (newValue === '') {
 				newValue = null;
@@ -78,7 +73,7 @@ const Index = ({
 				disabled={disabled}
 				tabIndex={unfocusable ? -1 : 0}
 				placeholder={stateFocus ? null : placeholder}
-				value={stateValue || ''}
+				value={value || stateValue || ''}
 				name={name}
 				onChange={onChangeSelf}
 				autoFocus={stateFocus}
@@ -87,14 +82,13 @@ const Index = ({
 			/>
 		);
 	};
-
 	const renderMultiline = () => {
 		return (
 			<EditableText
 				invisible
 				disabled={disabled}
 				unfocusable={unfocusable}
-				value={stateValue || ''}
+				value={value || stateValue || ''}
 				name={name}
 				onChange={onChangeMultiline}
 				onFocus={onFocus}
@@ -103,14 +97,18 @@ const Index = ({
 		);
 	};
 
-	let classes = classNames('ptr-input-text', {
-		empty: !stateValue,
-		focus: stateFocus,
-		input: !multiline,
-		inverted: !!inverted,
-		multiline: multiline,
-		disabled: disabled,
-	});
+	let classes = classNames(
+		'ptr-input-text',
+		{
+			empty: !(stateValue || value),
+			focus: stateFocus,
+			input: !multiline,
+			inverted: !!inverted,
+			multiline: multiline,
+			disabled: disabled,
+		},
+		className
+	);
 
 	return (
 		<div className={classes}>
@@ -120,7 +118,8 @@ const Index = ({
 	);
 };
 
-Index.propTypes = {
+Input.propTypes = {
+	className: PropTypes.string,
 	children: PropTypes.node,
 	disabled: PropTypes.bool,
 	inverted: PropTypes.bool,
@@ -136,4 +135,4 @@ Index.propTypes = {
 	multiline: PropTypes.bool,
 };
 
-export default Index;
+export default Input;

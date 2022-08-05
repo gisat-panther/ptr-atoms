@@ -1,3 +1,15 @@
+# v1.6.2 (Fri Aug 05 2022)
+
+#### 🐾 Patch
+
+- Fix Input text and add possibility to pass classnames [#39](https://github.com/gisat-panther/ptr-atoms/pull/39) ([@vdubr](https://github.com/vdubr))
+
+#### Authors: 1
+
+- Vojtěch Dubrovský ([@vdubr](https://github.com/vdubr))
+
+---
+
 # v1.6.1 (Fri Jul 01 2022)
 
 #### 🐾 Patch

@@ -1,3 +1,15 @@
+# v1.6.1 (Fri Jul 01 2022)
+
+#### 🐾 Patch
+
+- Fix ButtonSwitch [#37](https://github.com/gisat-panther/ptr-atoms/pull/37) ([@vdubr](https://github.com/vdubr))
+
+#### Authors: 1
+
+- Vojtěch Dubrovský ([@vdubr](https://github.com/vdubr))
+
+---
+
 # v1.6.0 (Fri Jun 24 2022)
 
 #### 🚀 Enhancement

@@ -1,0 +1,11 @@
+$iconSize: 1.25rem;
+
+.ptr-icon,
+.ptr-react-icon {
+	width: $iconSize;
+	height: $iconSize;
+}
+
+.ptr-react-icon.clockwise270 {
+	transform: rotate(270deg);
+}

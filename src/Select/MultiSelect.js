@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Value from './Value';
-import Icon from '../Icon';
+import Icon from '../Icon/PantherIcon';
 
 import './select.scss';
 import Select from './index';

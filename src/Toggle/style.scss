@@ -1,0 +1,53 @@
+@use 'sass:math';
+
+$width: 1.7rem;
+$height: 1.1rem;
+$borderWidth: 0.1rem;
+
+.ptr-Toggle {
+	position: relative;
+	width: $width;
+	height: $height;
+	border-radius: math.div($height, 2);
+	cursor: pointer;
+	border: $borderWidth solid var(--base55);
+	transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.ptr-Toggle-bullet {
+	background: var(--base60);
+	width: $height - $borderWidth * 4;
+	height: $height - $borderWidth * 4;
+	border-radius: math.div($height, 2);
+	position: absolute;
+	left: $borderWidth;
+	top: $borderWidth;
+	transition: left 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
+
+// on
+.ptr-Toggle.is-on {
+	background: var(--accent10);
+	border: $borderWidth solid var(--accent45);
+}
+
+.ptr-Toggle.is-on .ptr-Toggle-bullet {
+	left: $width - $height + $borderWidth;
+	background: var(--accent55);
+}
+
+// disabled
+.ptr-Toggle.is-disabled {
+	border-color: var(--base25);
+	pointer-events: none;
+}
+.ptr-Toggle.is-on.is-disabled {
+	border-color: var(--accent25);
+}
+
+.ptr-Toggle.is-disabled .ptr-Toggle-bullet {
+	background: var(--base25);
+}
+.ptr-Toggle.is-on.is-disabled .ptr-Toggle-bullet {
+	background: var(--accent25);
+}

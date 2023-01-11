@@ -9,7 +9,7 @@ import {
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import Icon from '../Icon';
+import Icon from '../Icon/PantherIcon';
 import Menu from '../Menu';
 
 import './style.scss';

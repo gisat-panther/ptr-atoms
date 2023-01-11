@@ -1,3 +1,15 @@
+# v1.7.0 (Wed Jan 11 2023)
+
+#### 🚀 Enhancement
+
+- Add atoms from visat-components [#43](https://github.com/gisat-panther/ptr-atoms/pull/43) ([@vlach1989](https://github.com/vlach1989))
+
+#### Authors: 1
+
+- Pavel Vlach ([@vlach1989](https://github.com/vlach1989))
+
+---
+
 # v1.6.2 (Fri Aug 05 2022)
 
 #### 🐾 Patch

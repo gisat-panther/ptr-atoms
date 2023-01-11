@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import Value from './Value';
-import Icon from '../Icon';
+import Icon from '../Icon/PantherIcon';
 
 const AddValue = ({option, unfocusable, onOptionLabelClick}) => {
 	const startItems = [

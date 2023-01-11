@@ -1,0 +1,76 @@
+@use 'sass:math';
+@import '~@gisatcz/ptr-core/lib/styles/_variables';
+
+$accentedColor: var(--accent55);
+$baseColor: var(--base80);
+$disabledColor: var(--base25);
+
+.ptr-Switcher {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.ptr-Switcher-title {
+	display: flex;
+	align-items: center;
+	color: $baseColor;
+}
+
+.ptr-Switcher .ptr-icon .line {
+	fill: $baseColor;
+}
+
+.ptr-Switcher .ptr-react-icon,
+.ptr-Switcher .ptr-icon {
+	margin-right: 0.35rem;
+	width: 1rem;
+	height: 1rem;
+}
+
+.ptr-Switcher-name {
+	color: $baseColor;
+	font-size: $a1;
+}
+
+.ptr-Switcher-toggle {
+	margin-left: 0.5rem;
+	display: flex;
+	flex-direction: column;
+}
+
+// interactive
+.ptr-Switcher.is-interactive {
+	cursor: pointer;
+}
+
+// active
+.ptr-Switcher.is-active .ptr-Switcher-title {
+	color: $accentedColor;
+}
+
+.ptr-Switcher.is-active .ptr-Switcher-name {
+	color: $accentedColor;
+	font-weight: 500;
+}
+
+.ptr-Switcher.is-active .ptr-icon .line {
+	fill: $accentedColor;
+}
+
+// disabled
+.ptr-Switcher.is-disabled {
+	pointer-events: none;
+}
+
+.ptr-Switcher.is-disabled .ptr-Switcher-title {
+	color: $disabledColor;
+}
+
+.ptr-Switcher.is-disabled .ptr-icon .line {
+	fill: $disabledColor;
+}
+
+.ptr-Switcher.is-disabled .ptr-Switcher-name {
+	color: $disabledColor;
+}

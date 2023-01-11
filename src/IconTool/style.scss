@@ -1,0 +1,83 @@
+@use 'sass:math';
+@import '~@gisatcz/ptr-core/lib/styles/_variables';
+
+/* Tool */
+.ptr-IconTool {
+	position: relative;
+	height: 2.25rem;
+	width: 2.25rem;
+	border-radius: 1.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	color: var(--base60);
+}
+
+.ptr-IconTool:hover {
+	color: var(--base80);
+	background: rgba(var(--base50rgb), 0.12);
+}
+
+.ptr-dark .ptr-IconTool:hover {
+	background: rgba(var(--base50rgb), 0.25);
+}
+
+// small
+.ptr-IconTool.is-small {
+	height: 1.75rem;
+	width: 1.75rem;
+}
+
+.ptr-IconTool.is-small .ptr-icon,
+.ptr-IconTool.is-small .ptr-react-icon,
+.ptr-IconTool.is-medium .ptr-icon,
+.ptr-IconTool.is-medium .ptr-react-icon {
+	width: 1.125rem;
+	height: 1.125rem;
+}
+
+// medium
+.ptr-IconTool.is-medium {
+	height: 2rem;
+	width: 2rem;
+}
+
+// active
+.ptr-IconTool.is-active {
+	color: var(--accent55);
+}
+
+// disabled
+.ptr-IconTool.is-disabled {
+	pointer-events: none;
+	color: var(--base25);
+}
+
+// floating
+.ptr-IconTool.is-floating {
+	position: relative;
+	z-index: 2;
+	background: var(--base05);
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
+}
+.ptr-dark .ptr-IconTool.is-floating {
+	border: 0.05rem solid var(--base30);
+}
+.ptr-IconTool.is-floating:hover {
+	background: var(--base05);
+}
+.ptr-IconTool.is-floating:hover:after {
+	content: '';
+	border-radius: 1.5rem;
+	@include positionFill();
+	background: rgba(var(--base50rgb), 0.12);
+}
+.ptr-dark .ptr-IconTool.is-floating:hover:after {
+	background: rgba(var(--base50rgb), 0.25);
+}
+
+// rectangular
+.ptr-IconTool.is-rectangular {
+	border-radius: 0.25rem;
+}

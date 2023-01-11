@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import './style.scss';
 import PantherSelectContext from './context';
 import Item from './PantherSelectItem';
-import Icon from '../Icon';
+import Icon from '../Icon/PantherIcon';
 
 const PantherSelect = ({
 	disabled = false,

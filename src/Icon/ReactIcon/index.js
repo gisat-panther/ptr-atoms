@@ -59,6 +59,7 @@ import {
 import {HiCursorClick as Selection} from 'react-icons/hi';
 import {ImStatsBars as Statistics} from 'react-icons/im';
 import {TbSatellite as Satellite} from 'react-icons/tb';
+import {FaMountain as Mountain} from 'react-icons/fa';
 import './style.scss';
 
 const ReactIcon = ({icon}) => {
@@ -138,6 +139,9 @@ const ReactIcon = ({icon}) => {
 			break;
 		case 'ri-logout':
 			i = <Logout />;
+			break;
+		case 'ri-3D-view':
+			i = <Mountain />;
 			break;
 		case 'ri-more-dots':
 			i = <MoreDots />;

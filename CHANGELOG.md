@@ -1,3 +1,15 @@
+# v1.7.1 (Tue Jan 24 2023)
+
+#### 🐾 Patch
+
+- Add mountine icon [#44](https://github.com/gisat-panther/ptr-atoms/pull/44) ([@vdubr](https://github.com/vdubr))
+
+#### Authors: 1
+
+- Vojtěch Dubrovský ([@vdubr](https://github.com/vdubr))
+
+---
+
 # v1.7.0 (Wed Jan 11 2023)
 
 #### 🚀 Enhancement

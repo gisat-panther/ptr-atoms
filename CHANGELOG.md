@@ -1,3 +1,15 @@
+# v1.7.2 (Tue Jan 31 2023)
+
+#### 🐾 Patch
+
+- Feature/add icon [#45](https://github.com/gisat-panther/ptr-atoms/pull/45) ([@vdubr](https://github.com/vdubr))
+
+#### Authors: 1
+
+- Vojtěch Dubrovský ([@vdubr](https://github.com/vdubr))
+
+---
+
 # v1.7.1 (Tue Jan 24 2023)
 
 #### 🐾 Patch

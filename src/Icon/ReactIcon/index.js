@@ -56,7 +56,10 @@ import {
 	GoPrimitiveSquare as Square,
 	GoTools as Tools,
 } from 'react-icons/go';
-import {HiCursorClick as Selection} from 'react-icons/hi';
+import {
+	HiCursorClick as Selection,
+	HiCursorArrowRipple as Tooltip,
+} from 'react-icons/hi';
 import {ImStatsBars as Statistics} from 'react-icons/im';
 import {TbSatellite as Satellite} from 'react-icons/tb';
 import {FaMountain as Mountain} from 'react-icons/fa';
@@ -220,6 +223,9 @@ const ReactIcon = ({icon}) => {
 			break;
 		case 'ri-tools':
 			i = <Tools />;
+			break;
+		case 'ri-tooltip':
+			i = <Tooltip />;
 			break;
 		case 'ri-statistics':
 			i = <Statistics />;

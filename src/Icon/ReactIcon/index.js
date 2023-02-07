@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import {IconContext} from 'react-icons';
+import classnames from 'classnames';
 import {
 	MdArrowBack as Back,
 	MdArrowForward as Forward,
@@ -65,7 +66,7 @@ import './style.scss';
 
 const ReactIcon = ({icon, className, style}) => {
 	let i = null;
-	let classes = `ptr-react-icon ${className || ''}`;
+	let classes = classnames('ptr-react-icon', className);
 
 	switch (icon) {
 		case 'ri-add-map':
@@ -102,7 +103,7 @@ const ReactIcon = ({icon, className, style}) => {
 			i = <Close />;
 			break;
 		case 'ri-collections':
-			classes = 'ptr-react-icon clockwise270';
+			classes = classnames(classes, 'clockwise270');
 			i = <Collections />;
 			break;
 		case 'ri-compare':

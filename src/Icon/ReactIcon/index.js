@@ -63,9 +63,9 @@ import {TbSatellite as Satellite} from 'react-icons/tb';
 import {FaMountain as Mountain} from 'react-icons/fa';
 import './style.scss';
 
-const ReactIcon = ({icon}) => {
+const ReactIcon = ({icon, className, style}) => {
 	let i = null;
-	let classes = 'ptr-react-icon';
+	let classes = `ptr-react-icon ${className || ''}`;
 
 	switch (icon) {
 		case 'ri-add-map':
@@ -240,7 +240,7 @@ const ReactIcon = ({icon}) => {
 	}
 
 	return (
-		<IconContext.Provider value={{className: classes}}>
+		<IconContext.Provider value={{className: classes, style: style}}>
 			{i}
 		</IconContext.Provider>
 	);
@@ -248,6 +248,8 @@ const ReactIcon = ({icon}) => {
 
 ReactIcon.propTypes = {
 	icon: PropTypes.string,
+	className: PropTypes.string,
+	style: PropTypes.object,
 };
 
 export default ReactIcon;

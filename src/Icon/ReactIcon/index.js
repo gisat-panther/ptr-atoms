@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import {IconContext} from 'react-icons';
+import classnames from 'classnames';
 import {
 	MdArrowBack as Back,
 	MdArrowForward as Forward,
@@ -63,9 +64,9 @@ import {TbSatellite as Satellite} from 'react-icons/tb';
 import {FaMountain as Mountain} from 'react-icons/fa';
 import './style.scss';
 
-const ReactIcon = ({icon}) => {
+const ReactIcon = ({icon, className, style}) => {
 	let i = null;
-	let classes = 'ptr-react-icon';
+	let classes = classnames('ptr-react-icon', className);
 
 	switch (icon) {
 		case 'ri-add-map':
@@ -102,7 +103,7 @@ const ReactIcon = ({icon}) => {
 			i = <Close />;
 			break;
 		case 'ri-collections':
-			classes = 'ptr-react-icon clockwise270';
+			classes = classnames(classes, 'clockwise270');
 			i = <Collections />;
 			break;
 		case 'ri-compare':
@@ -240,7 +241,7 @@ const ReactIcon = ({icon}) => {
 	}
 
 	return (
-		<IconContext.Provider value={{className: classes}}>
+		<IconContext.Provider value={{className: classes, style: style}}>
 			{i}
 		</IconContext.Provider>
 	);
@@ -248,6 +249,8 @@ const ReactIcon = ({icon}) => {
 
 ReactIcon.propTypes = {
 	icon: PropTypes.string,
+	className: PropTypes.string,
+	style: PropTypes.object,
 };
 
 export default ReactIcon;

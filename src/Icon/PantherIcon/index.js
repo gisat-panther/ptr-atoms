@@ -1,3 +1,4 @@
+import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import AngleDoubleDown from './components/AngleDoubleDown';
 import AngleDoubleLeft from './components/AngleDoubleLeft';
@@ -229,7 +230,7 @@ const PantherIcon = ({style, className, icon}) => (
 		height="32px"
 		viewBox="0 0 32 32"
 		xmlSpace="preserve"
-		className={`ptr-icon ${className || ''}`}
+		className={classnames('ptr-icon', className)}
 	>
 		{typeof icon === 'function' ? icon() : getIcon(icon)}
 	</svg>

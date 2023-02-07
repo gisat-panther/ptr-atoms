@@ -1,3 +1,15 @@
+# v1.7.3 (Tue Jan 31 2023)
+
+#### 🐾 Patch
+
+- Fix toolip cursor origin package name [#46](https://github.com/gisat-panther/ptr-atoms/pull/46) ([@vdubr](https://github.com/vdubr))
+
+#### Authors: 1
+
+- Vojtěch Dubrovský ([@vdubr](https://github.com/vdubr))
+
+---
+
 # v1.7.2 (Tue Jan 31 2023)
 
 #### 🐾 Patch

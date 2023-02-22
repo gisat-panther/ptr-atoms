@@ -1,6 +1,6 @@
 {
 	"name": "@gisatcz/ptr-atoms",
-	"version": "1.7.4",
+	"version": "1.8.0",
 	"description": "Panther FE atoms",
 	"sideEffects": false,
 	"keywords": [

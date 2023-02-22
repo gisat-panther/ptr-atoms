@@ -1,3 +1,15 @@
+# v1.8.0 (Wed Feb 22 2023)
+
+#### 🚀 Enhancement
+
+- new icons [#49](https://github.com/gisat-panther/ptr-atoms/pull/49) ([@vlach1989](https://github.com/vlach1989))
+
+#### Authors: 1
+
+- Pavel Vlach ([@vlach1989](https://github.com/vlach1989))
+
+---
+
 # v1.7.4 (Tue Feb 07 2023)
 
 #### 🐾 Patch

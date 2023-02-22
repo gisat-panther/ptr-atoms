@@ -58,10 +58,16 @@ import {
 	GoTools as Tools,
 } from 'react-icons/go';
 import {HiCursorClick as Selection} from 'react-icons/hi';
-import {HiCursorArrowRipple as Tooltip} from 'react-icons/hi2';
+import {
+	HiCursorArrowRipple as Tooltip,
+	HiGlobeEuropeAfrica as GlobeOutline,
+} from 'react-icons/hi2';
 import {ImStatsBars as Statistics} from 'react-icons/im';
-import {TbSatellite as Satellite} from 'react-icons/tb';
-import {FaMountain as Mountain} from 'react-icons/fa';
+import {
+	TbSatellite as Satellite,
+	TbZoomInArea as ZoomInArea,
+} from 'react-icons/tb';
+import {FaMountain as Mountain, FaGlobeAfrica as Globe} from 'react-icons/fa';
 import './style.scss';
 
 const ReactIcon = ({icon, className, style}) => {
@@ -123,6 +129,12 @@ const ReactIcon = ({icon, className, style}) => {
 			break;
 		case 'ri-forward':
 			i = <Forward />;
+			break;
+		case 'ri-globe':
+			i = <Globe />;
+			break;
+		case 'ri-globe-outline':
+			i = <GlobeOutline />;
 			break;
 		case 'ri-help':
 			i = <Help />;
@@ -237,6 +249,9 @@ const ReactIcon = ({icon, className, style}) => {
 			break;
 		case 'ri-minimise':
 			i = <Minimise />;
+			break;
+		case 'ri-zoom-in-area':
+			i = <ZoomInArea />;
 			break;
 	}
 

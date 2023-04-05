@@ -57,7 +57,10 @@ import {
 	GoPrimitiveSquare as Square,
 	GoTools as Tools,
 } from 'react-icons/go';
-import {HiCursorClick as Selection} from 'react-icons/hi';
+import {
+	HiCursorClick as Selection,
+	HiOutlineClipboardCopy as ClipboardCopy,
+} from 'react-icons/hi';
 import {
 	HiCursorArrowRipple as Tooltip,
 	HiGlobeEuropeAfrica as GlobeOutline,
@@ -252,6 +255,9 @@ const ReactIcon = ({icon, className, style}) => {
 			break;
 		case 'ri-zoom-in-area':
 			i = <ZoomInArea />;
+			break;
+		case 'ri-clipboard-copy':
+			i = <ClipboardCopy />;
 			break;
 	}
 

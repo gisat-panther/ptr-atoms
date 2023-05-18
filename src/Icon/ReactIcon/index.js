@@ -42,6 +42,7 @@ import {
 	MdScatterPlot as ScatterChartBasic,
 	MdShowChart as LineChartBasic,
 	MdMinimize as Minimise,
+	MdOutlineContentPasteSearch as UseCase,
 } from 'react-icons/md';
 import {
 	SiZenodo as Zenodo,
@@ -57,7 +58,10 @@ import {
 	GoPrimitiveSquare as Square,
 	GoTools as Tools,
 } from 'react-icons/go';
-import {HiCursorClick as Selection} from 'react-icons/hi';
+import {
+	HiCursorClick as Selection,
+	HiOutlineDatabase as Database,
+} from 'react-icons/hi';
 import {
 	HiCursorArrowRipple as Tooltip,
 	HiGlobeEuropeAfrica as GlobeOutline,
@@ -117,6 +121,9 @@ const ReactIcon = ({icon, className, style}) => {
 			break;
 		case 'ri-dashboard':
 			i = <Dashboard />;
+			break;
+		case 'ri-database':
+			i = <Database />;
 			break;
 		case 'ri-datasets':
 			i = <Datasets />;
@@ -195,6 +202,9 @@ const ReactIcon = ({icon, className, style}) => {
 		case 'ri-configure':
 		case 'ri-settings':
 			i = <Tune />;
+			break;
+		case 'ri-use-case':
+			i = <UseCase />;
 			break;
 		case 'ri-user':
 			i = <Account />;

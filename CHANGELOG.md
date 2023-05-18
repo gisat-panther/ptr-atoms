@@ -1,3 +1,15 @@
+# v1.9.0 (Wed Apr 05 2023)
+
+#### 🚀 Enhancement
+
+- Add new icon for WorldWater [#50](https://github.com/gisat-panther/ptr-atoms/pull/50) ([@KrystofVavra](https://github.com/KrystofVavra))
+
+#### Authors: 1
+
+- Kryštof ([@KrystofVavra](https://github.com/KrystofVavra))
+
+---
+
 # v1.8.0 (Wed Feb 22 2023)
 
 #### 🚀 Enhancement

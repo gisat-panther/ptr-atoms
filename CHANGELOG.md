@@ -1,3 +1,15 @@
+# v1.11.0 (Thu Jun 08 2023)
+
+#### 🚀 Enhancement
+
+- Add icons for Visat [#52](https://github.com/gisat-panther/ptr-atoms/pull/52) ([@KrystofVavra](https://github.com/KrystofVavra))
+
+#### Authors: 1
+
+- Kryštof ([@KrystofVavra](https://github.com/KrystofVavra))
+
+---
+
 # v1.10.0 (Thu May 18 2023)
 
 #### 🚀 Enhancement

@@ -75,6 +75,11 @@ import {
 	TbChartHistogram as BarLineChart,
 } from 'react-icons/tb';
 import {FaMountain as Mountain, FaGlobeAfrica as Globe} from 'react-icons/fa';
+import {
+	AiOutlineFullscreenExit as FullscreenExit,
+	AiOutlineFullscreen as Fullscreen,
+} from 'react-icons/ai';
+
 import './style.scss';
 
 const ReactIcon = ({icon, className, style}) => {
@@ -274,6 +279,12 @@ const ReactIcon = ({icon, className, style}) => {
 			break;
 		case 'ri-clipboard-copy':
 			i = <ClipboardCopy />;
+			break;
+		case 'ri-fullscreen-exit':
+			i = <FullscreenExit />;
+			break;
+		case 'ri-fullscreen':
+			i = <Fullscreen />;
 			break;
 	}
 

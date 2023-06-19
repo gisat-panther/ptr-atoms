@@ -10,6 +10,7 @@ import {
 	MdExpandLess as ChevronUp,
 	MdExpandMore as ChevronDown,
 	MdHelpOutline as Help,
+	MdHourglassBottom as HourGlass,
 	MdOutlineArrowBackIos as ChevronLeft,
 	MdOutlineArrowForwardIos as ChevronRight,
 	MdOutlineCheck as Check,
@@ -71,6 +72,7 @@ import {ImStatsBars as Statistics} from 'react-icons/im';
 import {
 	TbSatellite as Satellite,
 	TbZoomInArea as ZoomInArea,
+	TbChartHistogram as BarLineChart,
 } from 'react-icons/tb';
 import {FaMountain as Mountain, FaGlobeAfrica as Globe} from 'react-icons/fa';
 import './style.scss';
@@ -91,6 +93,9 @@ const ReactIcon = ({icon, className, style}) => {
 			break;
 		case 'ri-bar-chart':
 			i = <BarChart />;
+			break;
+		case 'ri-bar-line-chart':
+			i = <BarLineChart />;
 			break;
 		case 'ri-check':
 			i = <Check />;
@@ -146,6 +151,9 @@ const ReactIcon = ({icon, className, style}) => {
 			break;
 		case 'ri-help':
 			i = <Help />;
+			break;
+		case 'ri-hourglass':
+			i = <HourGlass />;
 			break;
 		case 'ri-info':
 			i = <Info />;

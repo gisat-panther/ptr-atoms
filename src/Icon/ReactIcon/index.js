@@ -55,8 +55,8 @@ import {
 import {AiFillHome as Home} from 'react-icons/ai';
 import {BiWater as Water} from 'react-icons/bi';
 import {
-	GoPrimitiveDot as Dot,
-	GoPrimitiveSquare as Square,
+	GoDot as Dot,
+	GoSquare as Square,
 	GoTools as Tools,
 } from 'react-icons/go';
 import {

@@ -44,6 +44,7 @@ import {
 	MdShowChart as LineChartBasic,
 	MdMinimize as Minimise,
 	MdOutlineContentPasteSearch as UseCase,
+	MdForest as Forest,
 } from 'react-icons/md';
 import {
 	SiZenodo as Zenodo,
@@ -74,11 +75,19 @@ import {
 	TbZoomInArea as ZoomInArea,
 	TbChartHistogram as BarLineChart,
 } from 'react-icons/tb';
-import {FaMountain as Mountain, FaGlobeAfrica as Globe} from 'react-icons/fa';
+import {
+	FaMountain as Mountain,
+	FaGlobeAfrica as Globe,
+	FaClipboardList as ClipboardList,
+} from 'react-icons/fa';
 import {
 	AiOutlineFullscreenExit as FullscreenExit,
 	AiOutlineFullscreen as Fullscreen,
 } from 'react-icons/ai';
+import {
+	GiArchiveRegister as ArchiveRegister,
+	GiWheat as Wheat,
+} from 'react-icons/gi';
 
 import './style.scss';
 
@@ -285,6 +294,18 @@ const ReactIcon = ({icon, className, style}) => {
 			break;
 		case 'ri-fullscreen':
 			i = <Fullscreen />;
+			break;
+		case 'ri-forest':
+			i = <Forest />;
+			break;
+		case 'ri-clipboardList':
+			i = <ClipboardList />;
+			break;
+		case 'ri-wheat':
+			i = <Wheat />;
+			break;
+		case 'ri-archiveRegister':
+			i = <ArchiveRegister />;
 			break;
 	}
 

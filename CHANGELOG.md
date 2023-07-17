@@ -1,3 +1,15 @@
+# v1.13.0 (Mon Jul 17 2023)
+
+#### 🚀 Enhancement
+
+- Add icons for bsadri [#55](https://github.com/gisat-panther/ptr-atoms/pull/55) ([@KrystofVavra](https://github.com/KrystofVavra))
+
+#### Authors: 1
+
+- Kryštof ([@KrystofVavra](https://github.com/KrystofVavra))
+
+---
+
 # v1.12.1 (Mon Jul 10 2023)
 
 #### 🐾 Patch

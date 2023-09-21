@@ -58,6 +58,7 @@ import {BiWater as Water} from 'react-icons/bi';
 import {
 	GoDot as Dot,
 	GoSquare as Square,
+	GoSquareFill as SquareFilled,
 	GoTools as Tools,
 } from 'react-icons/go';
 import {
@@ -212,6 +213,12 @@ const ReactIcon = ({icon, className, style}) => {
 		case 'ri-share':
 			i = <Share />;
 			break;
+		case 'ri-square':
+			i = <Square />;
+			break;
+		case 'ri-square-filled':
+			i = <SquareFilled />;
+			break;
 		case 'ri-star':
 			i = <Star />;
 			break;
@@ -252,9 +259,6 @@ const ReactIcon = ({icon, className, style}) => {
 			break;
 		case 'ri-dot':
 			i = <Dot />;
-			break;
-		case 'ri-square':
-			i = <Square />;
 			break;
 		case 'ri-filter':
 			i = <Filter />;

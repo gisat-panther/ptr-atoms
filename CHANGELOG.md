@@ -1,3 +1,15 @@
+# v1.14.0 (Mon Sep 25 2023)
+
+#### 🚀 Enhancement
+
+- Buttons & icons [#56](https://github.com/gisat-panther/ptr-atoms/pull/56) ([@vlach1989](https://github.com/vlach1989))
+
+#### Authors: 1
+
+- Pavel Vlach ([@vlach1989](https://github.com/vlach1989))
+
+---
+
 # v1.13.0 (Mon Jul 17 2023)
 
 #### 🚀 Enhancement

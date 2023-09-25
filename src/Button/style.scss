@@ -456,6 +456,11 @@
 	background: var(--accent95);
 }
 
+/* Floating */
+.ptr-button.floating {
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
+}
+
 /* Disability */
 .ptr-button:not(.disabled) {
 	cursor: pointer;

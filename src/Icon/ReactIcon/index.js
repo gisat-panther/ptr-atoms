@@ -69,6 +69,7 @@ import {
 import {
 	HiCursorArrowRipple as Tooltip,
 	HiGlobeEuropeAfrica as GlobeOutline,
+	HiLink as Link,
 } from 'react-icons/hi2';
 import {ImStatsBars as Statistics} from 'react-icons/im';
 import {
@@ -175,6 +176,9 @@ const ReactIcon = ({icon, className, style}) => {
 			break;
 		case 'ri-line-chart-basic':
 			i = <LineChartBasic />;
+			break;
+		case 'ri-link':
+			i = <Link />;
 			break;
 		case 'ri-location-search':
 			i = <LocationSearch />;

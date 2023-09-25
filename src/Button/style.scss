@@ -122,7 +122,8 @@
 }
 
 /* Icon */
-.ptr-button > .ptr-icon {
+.ptr-button > .ptr-icon,
+.ptr-button > .ptr-react-icon {
 	display: inline-block;
 	width: 1.25rem;
 	height: 1.25rem;
@@ -155,7 +156,8 @@
 	margin: 0 0.4rem;
 }
 
-.ptr-button.large > .ptr-icon {
+.ptr-button.large > .ptr-icon,
+.ptr-button.large > .ptr-react-icon {
 	width: 1.5rem;
 	height: 1.5rem;
 	margin: calc(0.75rem - 1px) 0.4rem;
@@ -172,7 +174,8 @@
 	margin: 0 0.15rem;
 }
 
-.ptr-button.small > .ptr-icon {
+.ptr-button.small > .ptr-icon,
+.ptr-button.small > .ptr-react-icon {
 	width: 1rem;
 	height: 1rem;
 	margin: calc(0.25rem - 1px) 0.15rem;
@@ -230,7 +233,8 @@
 	padding: 0;
 }
 
-.ptr-button.circular > .ptr-icon {
+.ptr-button.circular > .ptr-icon,
+.ptr-button.circular > .ptr-react-icon {
 	width: 1.25rem;
 	height: 1.25rem;
 	margin: calc(0.625rem - 1px);
@@ -253,7 +257,8 @@
 	height: 2rem;
 }
 
-.ptr-button.circular.small > .ptr-icon {
+.ptr-button.circular.small > .ptr-icon,
+.ptr-button.circular.small > .ptr-react-icon {
 	width: 1rem;
 	height: 1rem;
 	margin: calc(0.5rem - 1px);
@@ -264,7 +269,8 @@
 	height: 3.5rem;
 }
 
-.ptr-button.circular.large > .ptr-icon {
+.ptr-button.circular.large > .ptr-icon,
+.ptr-button.circular.large > .ptr-react-icon {
 	width: 1.5rem;
 	height: 1.5rem;
 	margin: calc(1rem - 1px);
@@ -448,6 +454,11 @@
 
 .ptr-button.inverted.ghost.primary:hover {
 	background: var(--accent95);
+}
+
+/* Floating */
+.ptr-button.floating {
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
 }
 
 /* Disability */

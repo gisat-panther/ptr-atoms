@@ -9,7 +9,7 @@ import {
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import Icon from '../Icon/PantherIcon';
+import Icon from '../Icon';
 import Menu from '../Menu';
 
 import './style.scss';
@@ -19,6 +19,7 @@ const Button = ({
 	circular,
 	className,
 	disabled = false,
+	floating = false,
 	ghost,
 	icon,
 	inverted,
@@ -171,6 +172,7 @@ const Button = ({
 		{
 			circular: !!circular,
 			disabled: disabled,
+			floating: floating,
 			ghost: !!ghost,
 			icon: !!iconInsert && !hasContent,
 			invisible: !!invisible,
@@ -213,6 +215,7 @@ Button.propTypes = {
 	className: PropTypes.string,
 	disabled: PropTypes.bool,
 	ghost: PropTypes.bool,
+	floating: PropTypes.bool,
 	icon: PropTypes.string,
 	inverted: PropTypes.bool,
 	invisible: PropTypes.bool,

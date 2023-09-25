@@ -58,6 +58,7 @@ export default {
 		'react-icons/bi',
 		'react-icons/go',
 		'react-icons/hi',
+		'react-icons/gi',
 		'react-icons/hi2',
 		'react-icons/im',
 		'react-icons/tb',

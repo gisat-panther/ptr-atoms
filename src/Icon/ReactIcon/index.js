@@ -58,6 +58,7 @@ import {BiWater as Water} from 'react-icons/bi';
 import {
 	GoDot as Dot,
 	GoSquare as Square,
+	GoSquareFill as SquareFilled,
 	GoTools as Tools,
 } from 'react-icons/go';
 import {
@@ -68,6 +69,7 @@ import {
 import {
 	HiCursorArrowRipple as Tooltip,
 	HiGlobeEuropeAfrica as GlobeOutline,
+	HiLink as Link,
 } from 'react-icons/hi2';
 import {ImStatsBars as Statistics} from 'react-icons/im';
 import {
@@ -175,6 +177,9 @@ const ReactIcon = ({icon, className, style}) => {
 		case 'ri-line-chart-basic':
 			i = <LineChartBasic />;
 			break;
+		case 'ri-link':
+			i = <Link />;
+			break;
 		case 'ri-location-search':
 			i = <LocationSearch />;
 			break;
@@ -211,6 +216,12 @@ const ReactIcon = ({icon, className, style}) => {
 			break;
 		case 'ri-share':
 			i = <Share />;
+			break;
+		case 'ri-square':
+			i = <Square />;
+			break;
+		case 'ri-square-filled':
+			i = <SquareFilled />;
 			break;
 		case 'ri-star':
 			i = <Star />;
@@ -252,9 +263,6 @@ const ReactIcon = ({icon, className, style}) => {
 			break;
 		case 'ri-dot':
 			i = <Dot />;
-			break;
-		case 'ri-square':
-			i = <Square />;
 			break;
 		case 'ri-filter':
 			i = <Filter />;

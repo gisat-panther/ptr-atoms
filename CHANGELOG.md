@@ -1,3 +1,15 @@
+# v1.14.1 (Tue Sep 26 2023)
+
+#### 🐾 Patch
+
+- Focus icon [#57](https://github.com/gisat-panther/ptr-atoms/pull/57) ([@vlach1989](https://github.com/vlach1989))
+
+#### Authors: 1
+
+- Pavel Vlach ([@vlach1989](https://github.com/vlach1989))
+
+---
+
 # v1.14.0 (Mon Sep 25 2023)
 
 #### 🚀 Enhancement

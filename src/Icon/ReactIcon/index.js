@@ -20,6 +20,7 @@ import {
 	MdFilterNone as Collections,
 	MdOutlineAddCircleOutline as Plus,
 	MdOutlineFeed as Story,
+	MdCenterFocusWeak as Focus,
 	MdOutlineFolder as Datasets,
 	MdOutlineDarkMode as DarkMode,
 	MdOutlineAccountCircle as Account,
@@ -155,6 +156,9 @@ const ReactIcon = ({icon, className, style}) => {
 			break;
 		case 'ri-download':
 			i = <Download />;
+			break;
+		case 'ri-focus':
+			i = <Focus />;
 			break;
 		case 'ri-forward':
 			i = <Forward />;

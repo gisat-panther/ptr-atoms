@@ -9,6 +9,7 @@ import {
 	MdCompare as Compare,
 	MdExpandLess as ChevronUp,
 	MdExpandMore as ChevronDown,
+	MdDragIndicator as DragIndicator,
 	MdHelpOutline as Help,
 	MdHourglassBottom as HourGlass,
 	MdOutlineArrowBackIos as ChevronLeft,
@@ -156,6 +157,9 @@ const ReactIcon = ({icon, className, style}) => {
 			break;
 		case 'ri-download':
 			i = <Download />;
+			break;
+		case 'ri-drag-indicator':
+			i = <DragIndicator />;
 			break;
 		case 'ri-focus':
 			i = <Focus />;

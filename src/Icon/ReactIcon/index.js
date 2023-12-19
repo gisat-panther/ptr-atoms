@@ -78,6 +78,8 @@ import {
 	TbSatellite as Satellite,
 	TbZoomInArea as ZoomInArea,
 	TbChartHistogram as BarLineChart,
+	TbSitemap as Sitemap,
+	TbChartTreemap as ChartTreemap,
 } from 'react-icons/tb';
 import {
 	FaMountain as Mountain,
@@ -178,6 +180,9 @@ const ReactIcon = ({icon, className, style}) => {
 			break;
 		case 'ri-hourglass':
 			i = <HourGlass />;
+			break;
+		case 'ri-chart-treemap':
+			i = <ChartTreemap />;
 			break;
 		case 'ri-info':
 			i = <Info />;
@@ -289,6 +294,9 @@ const ReactIcon = ({icon, className, style}) => {
 			break;
 		case 'ri-statistics':
 			i = <Statistics />;
+			break;
+		case 'ri-sitemap':
+			i = <Sitemap />;
 			break;
 		case 'ri-vertical-align-center':
 			i = <VerticalAlignCenter />;

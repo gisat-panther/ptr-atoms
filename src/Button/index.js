@@ -1,4 +1,4 @@
-import {
+import React, {
 	Fragment,
 	Children,
 	cloneElement,
@@ -11,6 +11,7 @@ import classNames from 'classnames';
 
 import Icon from '../Icon';
 import Menu from '../Menu';
+import Tooltip from '../Tooltip';
 
 import './style.scss';
 
@@ -36,6 +37,7 @@ const Button = ({
 	holdStart = 300,
 	holdStep = 50,
 	id,
+	tooltip,
 }) => {
 	const node = useRef();
 	const [menuOpen, setMenuOpen] = useState(false);
@@ -203,9 +205,20 @@ const Button = ({
 			onMouseLeave={onMouseOut}
 			onMouseDown={onMouseDown}
 			onMouseUp={onMouseOut}
+			data-tip={tooltip?.text}
+			data-for={tooltip?.id}
 		>
 			{iconInsert}
 			{content}
+			{tooltip && !disabled
+				? React.createElement(Tooltip, {
+						...tooltip.props,
+						id: tooltip.id,
+						place: tooltip.position || 'top',
+						effect: 'solid',
+						delayShow: tooltip.delayShow || 1000,
+				  })
+				: null}
 		</div>
 	);
 };
@@ -232,6 +245,7 @@ Button.propTypes = {
 	holdStep: PropTypes.number,
 	children: PropTypes.node,
 	id: PropTypes.string,
+	tooltip: PropTypes.object,
 };
 
 export default Button;

@@ -41,7 +41,9 @@ import {
 	MdOutlineVerticalAlignCenter as VerticalAlignCenter,
 	MdFilterList as Filter,
 	MdImageSearch as ImageSearch,
+	MdOutlineInsertComment as Comment,
 	MdOutlineMiscellaneousServices as Services,
+	MdOutlineChangeCircle as Exchange,
 	MdScatterPlot as ScatterChartBasic,
 	MdShowChart as LineChartBasic,
 	MdMinimize as Minimise,
@@ -80,6 +82,8 @@ import {
 	TbChartHistogram as BarLineChart,
 	TbSitemap as Sitemap,
 	TbChartTreemap as ChartTreemap,
+	TbColumns2 as TwoColumns,
+	TbLayoutRows as TwoRows,
 } from 'react-icons/tb';
 import {
 	FaMountain as Mountain,
@@ -94,6 +98,8 @@ import {
 	GiArchiveRegister as ArchiveRegister,
 	GiWheat as Wheat,
 } from 'react-icons/gi';
+import {PiNumberCircleFive} from 'react-icons/pi';
+import {LuRows as Rows} from 'react-icons/lu';
 
 import './style.scss';
 
@@ -117,6 +123,10 @@ const ReactIcon = ({icon, className, style}) => {
 		case 'ri-bar-line-chart':
 			i = <BarLineChart />;
 			break;
+		case 'ri-change':
+		case 'ri-exchange':
+			i = <Exchange />;
+			break;
 		case 'ri-check':
 			i = <Check />;
 			break;
@@ -132,6 +142,9 @@ const ReactIcon = ({icon, className, style}) => {
 		case 'ri-chevron-right':
 			i = <ChevronRight />;
 			break;
+		case 'ri-circle-five':
+			i = <PiNumberCircleFive />;
+			break;
 		case 'ri-city':
 			i = <City />;
 			break;
@@ -141,6 +154,12 @@ const ReactIcon = ({icon, className, style}) => {
 		case 'ri-collections':
 			classes = classnames(classes, 'clockwise270');
 			i = <Collections />;
+			break;
+		case 'ri-columns':
+			i = <TwoColumns />;
+			break;
+		case 'ri-comment':
+			i = <Comment />;
 			break;
 		case 'ri-compare':
 			i = <Compare />;
@@ -217,6 +236,9 @@ const ReactIcon = ({icon, className, style}) => {
 			break;
 		case 'ri-remove-layers':
 			i = <RemoveLayers />;
+			break;
+		case 'ri-rows':
+			i = <Rows />;
 			break;
 		case 'ri-satellite':
 			i = <Satellite />;

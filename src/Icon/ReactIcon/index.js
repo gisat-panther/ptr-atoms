@@ -49,6 +49,7 @@ import {
 	MdMinimize as Minimise,
 	MdOutlineContentPasteSearch as UseCase,
 	MdForest as Forest,
+	MdLinearScale as LinearScale,
 } from 'react-icons/md';
 import {
 	SiZenodo as Zenodo,
@@ -59,6 +60,7 @@ import {
 } from 'react-icons/si';
 import {AiFillHome as Home} from 'react-icons/ai';
 import {BiWater as Water} from 'react-icons/bi';
+import {GrTooltip as Tooltip} from 'react-icons/gr';
 import {
 	GoDot as Dot,
 	GoSquare as Square,
@@ -352,6 +354,12 @@ const ReactIcon = ({icon, className, style}) => {
 			break;
 		case 'ri-archiveRegister':
 			i = <ArchiveRegister />;
+			break;
+		case 'ri-tooltip':
+			i = <Tooltip />;
+			break;
+		case 'ri-scale':
+			i = <LinearScale />;
 			break;
 	}
 

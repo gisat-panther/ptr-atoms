@@ -358,9 +358,6 @@ const ReactIcon = ({icon, className, style}) => {
 		case 'ri-tooltip':
 			i = <Tooltip />;
 			break;
-		case 'ri-tooltip':
-			i = <Tooltip />;
-			break;
 		case 'ri-scale':
 			i = <LinearScale />;
 			break;

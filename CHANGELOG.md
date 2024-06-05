@@ -1,3 +1,16 @@
+# v1.15.1 (Wed Jun 05 2024)
+
+#### 🐾 Patch
+
+- Remove tooltip icon [#62](https://github.com/gisat-panther/ptr-atoms/pull/62) ([@vdubr](https://github.com/vdubr))
+- Add scale and tooltip icon [#61](https://github.com/gisat-panther/ptr-atoms/pull/61) ([@vdubr](https://github.com/vdubr))
+
+#### Authors: 1
+
+- Vojtěch Dubrovský ([@vdubr](https://github.com/vdubr))
+
+---
+
 # v1.15.0 (Wed Apr 24 2024)
 
 #### 🚀 Enhancement

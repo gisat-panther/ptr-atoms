@@ -62,7 +62,6 @@ export default {
 		'react-icons/hi2',
 		'react-icons/im',
 		'react-icons/tb',
-		'react-icons/gr',
 		'react-modal',
 		/@babel\/runtime/,
 		...lodashExternal,

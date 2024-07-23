@@ -43,7 +43,6 @@ import {
 	MdImageSearch as ImageSearch,
 	MdOutlineInsertComment as Comment,
 	MdOutlineMiscellaneousServices as Services,
-	MdOutlineChangeCircle as Exchange,
 	MdScatterPlot as ScatterChartBasic,
 	MdShowChart as LineChartBasic,
 	MdMinimize as Minimise,
@@ -84,12 +83,12 @@ import {
 	TbSitemap as Sitemap,
 	TbChartTreemap as ChartTreemap,
 	TbColumns2 as TwoColumns,
-	TbLayoutRows as TwoRows,
 } from 'react-icons/tb';
 import {
 	FaMountain as Mountain,
 	FaGlobeAfrica as Globe,
 	FaClipboardList as ClipboardList,
+	FaExchangeAlt as Exchange,
 } from 'react-icons/fa';
 import {
 	AiOutlineFullscreenExit as FullscreenExit,
@@ -101,6 +100,7 @@ import {
 } from 'react-icons/gi';
 import {PiNumberCircleFive} from 'react-icons/pi';
 import {LuRows as Rows} from 'react-icons/lu';
+import {IoMdAdd as Add} from 'react-icons/io';
 
 import './style.scss';
 
@@ -109,6 +109,9 @@ const ReactIcon = ({icon, className, style}) => {
 	let classes = classnames('ptr-react-icon', className);
 
 	switch (icon) {
+		case 'ri-add':
+			i = <Add />;
+			break;
 		case 'ri-add-map':
 			i = <AddMap />;
 			break;
@@ -229,7 +232,6 @@ const ReactIcon = ({icon, className, style}) => {
 			i = <MoreDots />;
 			break;
 		case 'ri-plus':
-		case 'ri-add':
 			i = <Plus />;
 			break;
 		case 'ri-read-more':
